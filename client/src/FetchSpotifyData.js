@@ -9,6 +9,7 @@ const spotifyApi = new SpotifyWebApi({
   clientId: "f655ecf166914d6b9ecf6d7abcc91c52",
 });
 
+// TODO: Figure out a way to limit API calls?
 export default function TopItems({ code }) {
   const accessToken = useAuth(code);
   const [trackResults, setTrackResults] = useState([]);
