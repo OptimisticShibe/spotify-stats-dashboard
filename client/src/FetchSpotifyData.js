@@ -8,18 +8,24 @@ import ArtistSearchResult from "./ArtistSearchResult";
 const spotifyApi = new SpotifyWebApi({
   clientId: "f655ecf166914d6b9ecf6d7abcc91c52",
 });
-
+const TIME_RANGE = {
+  short: "short_term",
+  medium: "medium_term",
+  long: "long_term",
+};
+const artistData = {
+  short: [],
+  medium: ["test!"],
+  long: [],
+};
 export default function TopItems({ code }) {
   const accessToken = useAuth(code);
   const [trackResults, setTrackResults] = useState([]);
   const [artistResults, setArtistResults] = useState([]);
   const [userInfo, setUserInfo] = useState({});
-  const TIME_RANGE = {
-    short: "short_term",
-    medium: "medium_term",
-    long: "long_term",
-  };
+
   const [timeRange, setTimeRange] = useState(TIME_RANGE.medium);
+
   // Any time access token changes, set access token on api
   useEffect(() => {
     if (!accessToken) return;
@@ -50,30 +56,29 @@ export default function TopItems({ code }) {
   // Get Top Artists
   useEffect(() => {
     if (!accessToken) return setTrackResults([]);
-
-    spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
-      console.log(res);
-      setArtistResults(
-        res.body.items.map((artist) => {
-          const smallestAlbumImage = artist.images.reduce((smallest, image) => {
-            if (image.height < smallest.height) return image;
-            return smallest;
-          }, artist.images[0]);
-          // Genres returned by API are all lowercase
-          const capitalizedGenre = artist.genres[0]
-            .split(" ")
-            .map((word) => {
-              return word[0].toUpperCase() + word.substring(1);
-            })
-            .join(" ");
-          return {
-            artistName: artist.name,
-            uri: artist.uri,
-            imageUrl: smallestAlbumImage.url,
-            genre: capitalizedGenre,
-          };
-        }),
-      );
+    let data = setArtistData(timeRange);
+    if (data) return setArtistResults(data);
+    spotifyApi.getMyTopArtists().then((res) => {
+      res.body.items.map((artist) => {
+        const smallestAlbumImage = artist.images.reduce((smallest, image) => {
+          if (image.height < smallest.height) return image;
+          return smallest;
+        }, artist.images[0]);
+        // Genres returned by API are all lowercase
+        const capitalizedGenre = artist.genres[0]
+          .split(" ")
+          .map((word) => {
+            return word[0].toUpperCase() + word.substring(1);
+          })
+          .join(" ");
+        data.push({
+          artistName: artist.name,
+          uri: artist.uri,
+          imageUrl: smallestAlbumImage.url,
+          genre: capitalizedGenre,
+        });
+      });
+      setArtistData(data);
     });
   }, [timeRange, accessToken]);
 
@@ -119,4 +124,11 @@ export default function TopItems({ code }) {
       </div>
     </div>
   );
+}
+
+function setArtistData(timeRange) {
+  if (timeRange === TIME_RANGE.short) return artistData.short;
+  if (timeRange === TIME_RANGE.medium) return artistData.medium;
+  if (timeRange === TIME_RANGE.long) return artistData.long;
+  else return [];
 }
