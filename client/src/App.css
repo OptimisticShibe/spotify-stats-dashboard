@@ -1,3 +1,160 @@
+:root {
+  --bg: #242526;
+  --bg-accent: #484a4d;
+  --text-color: #dadce1;
+  --nav-size: 60px;
+  --border: 1px solid #474a4d;
+  --border-radius: 8px;
+  --speed: 500ms;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
 .Login-header {
   background-color: #282c34;
+}
+body {
+  background-color: #2f446d;
+}
+
+.loading-spinner {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loading-spinner span {
+  transform: scale(3);
+}
+
+.text-main {
+  color: white;
+  font-size: 24px;
+  /* position: relative; */
+}
+.text-sub {
+  color: rgb(185, 185, 185);
+}
+.item-bg {
+  background-color: #465f91;
+  display: flex;
+  /* border-radius: 15px; */
+  width: 35vw;
+  /* position: relative; */
+}
+
+@media (max-width: 992px) {
+  .item-bg {
+    width: 50vw;
+  }
+  .btn {
+    width: 15vw;
+  }
+}
+
+h2 {
+  color: white;
+}
+
+.user-container {
+  height: 20vh;
+}
+
+.data-container img {
+  /* width: 100%; */
+  /* height: 100%; */
+  min-width: 104px;
+  max-height: 104px;
+  align-self: stretch;
+  /* align-items: stretch; */
+  /* position: absolute; */
+}
+
+#mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 10vw;
+}
+#mobile-menu:hover {
+  cursor: pointer;
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: 80px;
+  width: 300px;
+  transform: translateX(-30%);
+  background-color: var(--bg);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: height var(--speed) ease;
+}
+
+.menu {
+  width: 100%;
+}
+
+.menu-item {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  transition: background var(--speed);
+  padding: 1rem;
+  color: none;
+}
+
+.menu-item:hover {
+  /* lighter color for hover */
+}
+
+/* CSSTransition classes  */
+.menu-primary-enter {
+  position: absolute;
+  transform: translateX(-110%);
+}
+.menu-primary-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-primary-exit {
+  position: absolute;
+}
+.menu-primary-exit-active {
+  transform: translateX(-110%);
+  transition: all var(--speed) ease;
+}
+
+.menu-secondary-enter {
+  transform: translateX(110%);
+}
+.menu-secondary-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-secondary-exit {
+}
+.menu-secondary-exit-active {
+  transform: translateX(110%);
+  transition: all var(--speed) ease;
+}
+
+.icon-right {
+  margin-left: auto;
+}
+
+.icon-button {
+  position: relative;
+  right: 5px;
+  top: 0px;
+}
+
+.menu-item-text {
+  position: absolute;
+  left: 3em;
 }

@@ -1,6 +1,5 @@
 import React from "react";
-import { Stack, Container } from "react-bootstrap";
-import MaterialIcon from "material-icons-react";
+import { Container } from "react-bootstrap";
 
 const SCOPES = ["user-read-private", "user-top-read"];
 const CLIENT_ID = "f655ecf166914d6b9ecf6d7abcc91c52";
@@ -17,7 +16,7 @@ export default function Login() {
           Login With Spotify
         </a>
         <div className="d-flex align-items-center">
-          <MaterialIcon icon="star" size={100} color="#ffffff" />
+          Star Icon Was Here™️
           <p className="p-3">Text goes here</p>
         </div>
       </Container>
