@@ -5,7 +5,6 @@ import { Container } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 
 export default function DropdownMenu() {
-  // TODO: use mobileSelection to filter what displays
   const [activeMenu, setActiveMenu] = useState("main");
   const [menuHeight, setMenuHeight] = useState("auto");
   const [mobileSelection, setMobileSelection] = useState("artists");

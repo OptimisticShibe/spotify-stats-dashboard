@@ -45,10 +45,20 @@ body {
 }
 .item-bg {
   background-color: #465f91;
-  display: flex;
   /* border-radius: 15px; */
   width: 35vw;
   /* position: relative; */
+}
+
+ul.nav {
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+}
+
+.tab-content {
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 992px) {
@@ -79,9 +89,12 @@ h2 {
 }
 
 #mobile-menu {
-  position: fixed;
+  /* position: fixed;
   top: 0;
-  left: 10vw;
+  left: 10vw; */
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: 5px;
 }
 #mobile-menu:hover {
   cursor: pointer;
