@@ -38,7 +38,14 @@ body {
 .text-main {
   color: white;
   font-size: 24px;
+  overflow: hidden;
   /* position: relative; */
+}
+
+.text-main div {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .text-sub {
   color: rgb(185, 185, 185);
@@ -76,6 +83,12 @@ h2 {
 
 .user-container {
   height: 20vh;
+}
+
+.data-container {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .data-container img {

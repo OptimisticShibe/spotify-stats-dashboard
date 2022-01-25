@@ -25,12 +25,12 @@ export default function Dashboard({ code }) {
           <div>
             <Navbar bg="dark" variant="dark">
               <Container>
-                <Nav className="me-auto">
+                <Nav className="me-auto py-2">
                   <NavbarBrand>Spootifuu</NavbarBrand>
                   {/* full display options */}
                   <div className="d-flex px-5">{dataRender}</div>
                 </Nav>
-                <Navbar.Text className="d-none d-lg-flex">
+                <Navbar.Text className="d-none d-lg-block">
                   Created by: <a href="https://github.com/OptimisticShibe">Optimistic Shibe</a>
                 </Navbar.Text>
                 <Navbar.Text className="mx-2 clickable">
