@@ -34,7 +34,7 @@ export default function Dashboard({ code }) {
                   Created by: <a href="https://github.com/OptimisticShibe">Optimistic Shibe</a>
                 </Navbar.Text>
                 <Navbar.Text className="mx-2 clickable">
-                  <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} inverse />
+                  <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse />
                   {modalRender}
                 </Navbar.Text>
               </Container>
