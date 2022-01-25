@@ -8,7 +8,7 @@ export default function useAuth(code) {
 
   useEffect(() => {
     axios
-      .post("/login", {
+      .post("https://whispering-castle-41935.herokuapp.com/login", {
         code,
       })
       .then((res) => {
@@ -28,7 +28,7 @@ export default function useAuth(code) {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post("/refresh", {
+        .post("https://whispering-castle-41935.herokuapp.com/refresh", {
           refreshToken,
         })
         .then((res) => {
