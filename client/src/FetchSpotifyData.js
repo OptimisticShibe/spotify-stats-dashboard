@@ -89,6 +89,12 @@ export default function FetchSpotifyData({ code }) {
     });
   }, [accessToken]);
 
+  // useEffect(() => {
+  //   if (userInfo && artistResults && trackResults) {
+  //     setLoading(false);
+  //   }
+  // }, [userInfo, artistResults, trackResults])
+
   return {
     trackResults,
     artistResults,
