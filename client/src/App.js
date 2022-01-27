@@ -6,6 +6,7 @@ import "./App.css";
 const code = new URLSearchParams(window.location.search).get("code");
 
 function App() {
+  console.log(code);
   return code ? <Dashboard code={code} /> : <Login />;
 }
 

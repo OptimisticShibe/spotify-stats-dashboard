@@ -7,11 +7,13 @@ export default function useAuth(code) {
   const [expiresIn, setExpiresIn] = useState();
 
   useEffect(() => {
+    console.log(code);
     axios
       .post("http://localhost:3001/login", {
         code,
       })
       .then((res) => {
+        console.log(res);
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
@@ -19,7 +21,8 @@ export default function useAuth(code) {
         // Removes code from URL
         window.history.pushState({}, null, "/");
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         window.location = "/";
       });
   }, [code]);
