@@ -4,9 +4,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const SpotifyWebApi = require("spotify-web-api-node");
 
-const REDIRECT_URI = 'http://localhost:3000'
-const CLIENT_ID = 'f655ecf166914d6b9ecf6d7abcc91c52'
-const CLIENT_SECRET = 'd4e749097b7742b09cd944023b26ec2e'
 
 const app = express();
 app.use(cors());
