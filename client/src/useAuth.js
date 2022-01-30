@@ -15,7 +15,7 @@ export default function useAuth() {
   useEffect(() => {
     if (!code) return;
     axios
-      .post("http://topfivespotify.site/login", {
+      .post("https://topfivespotify.site/login", {
         code,
       })
       .then((res) => {
@@ -39,7 +39,7 @@ export default function useAuth() {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post("http://topfivespotify.site/refresh", {
+        .post("https://topfivespotify.site/refresh", {
           refreshToken,
         })
         .then((res) => {
