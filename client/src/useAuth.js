@@ -13,26 +13,25 @@ export default function useAuth() {
   }, []);
 
   useEffect(() => {
-    if (code != null) {
-      axios
-        .post("http://localhost:3001/login", {
-          code,
-        })
-        .then((res) => {
-          setAccessToken(res.data.accessToken);
-          setRefreshToken(res.data.refreshToken);
-          setExpiresIn(res.data.expiresIn);
-          setIsLoggedIn(true);
+    if (!code) return;
+    axios
+      .post("http://localhost:3001/login", {
+        code,
+      })
+      .then((res) => {
+        setAccessToken(res.data.accessToken);
+        setRefreshToken(res.data.refreshToken);
+        setExpiresIn(res.data.expiresIn);
+        setIsLoggedIn(true);
 
-          // TODO: check if this is the best way
-          // Removes code from URL
-          window.history.pushState({}, null, "/");
-        })
-        .catch(() => {
-          console.log("whuh oh");
-          // window.location = "/";
-        });
-    }
+        // TODO: check if this is the best way
+        // Removes code from URL
+        window.history.pushState({}, null, "/");
+        setCode("");
+      })
+      .catch(() => {
+        window.location = "/";
+      });
   }, [code]);
 
   useEffect(() => {
@@ -43,8 +42,8 @@ export default function useAuth() {
           refreshToken,
         })
         .then((res) => {
-          setAccessToken(res.data.accessToken);
-          setExpiresIn(res.data.expiresIn);
+          setAccessToken(res.data.body.access_token);
+          setExpiresIn(res.data.body.expires_in);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("expiresIn", expiresIn);
           setIsLoggedIn(true);
@@ -52,6 +51,7 @@ export default function useAuth() {
         .catch(() => {
           window.location = "/";
         });
+      // }, expiresIn);
     }, (expiresIn - 60) * 1000);
 
     return () => clearInterval(interval);
