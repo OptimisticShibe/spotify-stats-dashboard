@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "./useAuth";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "f655ecf166914d6b9ecf6d7abcc91c52",
@@ -27,7 +26,6 @@ export default function FetchSpotifyData() {
 
   // Any time access token changes, set access token on api
   useEffect(() => {
-    console.log(accessToken);
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);

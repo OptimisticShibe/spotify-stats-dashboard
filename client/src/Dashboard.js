@@ -7,7 +7,6 @@ import FetchSpotifyData from "./FetchSpotifyData";
 import InfoModal from "./InfoModal";
 import TrackSearchResult from "./TrackSearchResult";
 import UserDisplay from "./UserDisplay";
-import axios from "axios";
 
 // Display Results etc
 export default function Dashboard() {
