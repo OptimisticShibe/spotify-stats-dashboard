@@ -15,7 +15,7 @@ export default function useAuth() {
   useEffect(() => {
     if (!code) return;
     axios
-      .post("https://whispering-castle-41935.herokuapp.com/login", {
+      .post("http://topfivespotify.site/login", {
         code,
       })
       .then((res) => {
@@ -39,7 +39,7 @@ export default function useAuth() {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post("https://whispering-castle-41935.herokuapp.com/refresh", {
+        .post("http://topfivespotify.site/refresh", {
           refreshToken,
         })
         .then((res) => {
