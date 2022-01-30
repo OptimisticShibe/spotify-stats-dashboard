@@ -19,6 +19,7 @@ export default function useAuth() {
         code,
       })
       .then((res) => {
+        localStorage.clear();
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
@@ -61,7 +62,9 @@ export default function useAuth() {
   useEffect(() => {
     if (!accessToken) return;
     localStorage.setItem("accessToken", accessToken);
-  }, [accessToken]);
+    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("expiresIn", expiresIn);
+  }, [accessToken, refreshToken, expiresIn]);
 
   return isLoggedIn;
 }
