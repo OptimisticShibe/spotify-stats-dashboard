@@ -4,18 +4,17 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const SpotifyWebApi = require("spotify-web-api-node");
 
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/refresh", (req, res) => {
   const refreshToken = req.body.refreshToken;
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: REDIRECT_URI,
-    clientId: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
+    redirectUri: process.env.REDIRECT_URI,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
     refreshToken,
   });
 
@@ -29,26 +28,28 @@ app.post("/refresh", (req, res) => {
       console.log(data);
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       res.sendStatus(400);
     });
 });
 
 app.post("/login", (req, res) => {
-  console.log('made it to server')
+  console.log("made it to server");
+  console.log(`Request Body:`);
+  console.log(req.body);
   const code = req.body.code;
-  console.log(`code = ${code}`)
+  console.log(`code = ${code}`);
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: REDIRECT_URI,
-    clientId: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
+    redirectUri: process.env.REDIRECT_URI,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
   });
-  console.log(spotifyApi)
+  console.log(spotifyApi);
 
   spotifyApi
     .authorizationCodeGrant(code)
     .then((data) => {
-      console.log(`data from server /login = ${data}`)
+      console.log(`data from server /login = ${data}`);
       res.json({
         accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
@@ -57,7 +58,7 @@ app.post("/login", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      console.log("error in server")
+      console.log("error in server");
       res.sendStatus(400);
     });
 });

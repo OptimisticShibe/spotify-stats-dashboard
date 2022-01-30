@@ -2,12 +2,15 @@ import Login from "./Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dashboard from "./Dashboard";
 import "./App.css";
-
-const code = new URLSearchParams(window.location.search).get("code");
+import { useEffect, useState } from "react";
+import useAuth from "./useAuth";
+import { ProvideAuth } from "./context/AuthContext";
 
 function App() {
-  console.log(code);
-  return code ? <Dashboard code={code} /> : <Login />;
+  const { isLoggedIn } = ProvideAuth();
+  console.log({ isLoggedIn });
+
+  return isLoggedIn ? <Dashboard /> : <Login />;
 }
 
 export default App;
