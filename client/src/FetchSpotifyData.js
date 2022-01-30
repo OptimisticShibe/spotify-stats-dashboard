@@ -7,8 +7,8 @@ const spotifyApi = new SpotifyWebApi({
   clientId: "f655ecf166914d6b9ecf6d7abcc91c52",
 });
 
-export default function FetchSpotifyData({ code }) {
-  const accessToken = useAuth(code);
+export default function FetchSpotifyData() {
+  const accessToken = localStorage.getItem("accessToken");
   const [trackResults, setTrackResults] = useState([]);
   const [artistResults, setArtistResults] = useState([]);
   const [userInfo, setUserInfo] = useState({});
@@ -27,6 +27,7 @@ export default function FetchSpotifyData({ code }) {
 
   // Any time access token changes, set access token on api
   useEffect(() => {
+    console.log(accessToken);
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
@@ -34,22 +35,19 @@ export default function FetchSpotifyData({ code }) {
   // Get Top Tracks
   useEffect(() => {
     if (!accessToken) return setTrackResults([]);
-    spotifyApi
-      .getMyTopTracks({ limit: 5, time_range: timeRange })
-      .then((res) => {
-        setTrackResults(
-          res.body.items.map((track) => {
-            const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
-            return {
-              artist: track.artists[0].name,
-              title: track.name,
-              uri: track.uri,
-              albumUrl: largestAlbumImage.url,
-            };
-          }),
-        );
-      })
-      .then(() => setLoading(false));
+    spotifyApi.getMyTopTracks({ limit: 5, time_range: timeRange }).then((res) => {
+      setTrackResults(
+        res.body.items.map((track) => {
+          const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
+          return {
+            artist: track.artists[0].name,
+            title: track.name,
+            uri: track.uri,
+            albumUrl: largestAlbumImage.url,
+          };
+        }),
+      );
+    });
   }, [timeRange, accessToken]);
 
   // Get Top Artists
@@ -88,6 +86,14 @@ export default function FetchSpotifyData({ code }) {
       });
     });
   }, [accessToken]);
+
+  useEffect(() => {
+    if (userInfo && artistResults && trackResults) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 800);
+    }
+  }, [userInfo, artistResults, trackResults]);
 
   return {
     trackResults,
