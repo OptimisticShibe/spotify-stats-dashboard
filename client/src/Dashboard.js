@@ -9,8 +9,8 @@ import TrackSearchResult from "./TrackSearchResult";
 import UserDisplay from "./UserDisplay";
 
 // Display Results etc
-export default function Dashboard({ code }) {
-  const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData({ code });
+export default function Dashboard() {
+  const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData();
 
   const { handleShowModal, modalRender } = InfoModal();
 

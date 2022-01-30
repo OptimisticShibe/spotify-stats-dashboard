@@ -2,11 +2,12 @@ import Login from "./Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dashboard from "./Dashboard";
 import "./App.css";
-
-const code = new URLSearchParams(window.location.search).get("code");
+import useAuth from "./useAuth";
 
 function App() {
-  return code ? <Dashboard code={code} /> : <Login />;
+  useAuth();
+  const isLoggedIn = localStorage.getItem("accessToken");
+  return isLoggedIn ? <Dashboard /> : <Login />;
 }
 
 export default App;

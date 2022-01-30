@@ -21,13 +21,10 @@ app.post("/refresh", (req, res) => {
   spotifyApi
     .refreshAccessToken()
     .then((data) => {
-      res.json({
-        accessToken: data.body.accessToken,
-        expiresIn: data.body.expiresIn,
-      });
-      console.log(data);
+      res.send(data);
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       res.sendStatus(400);
     });
 });
