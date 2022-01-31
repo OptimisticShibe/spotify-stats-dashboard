@@ -1,13 +1,13 @@
 import { CSSTransition } from "react-transition-group";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCrown, faCompactDisc, faChevronLeft, faChevronRight, faCoffee, faClock, faCalendarAlt, faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { faCrown, faCompactDisc, faChevronLeft, faChevronRight, faClock, faCalendarAlt, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "react-bootstrap";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function DropdownMenu() {
   const [activeMenu, setActiveMenu] = useState("main");
   const [menuHeight, setMenuHeight] = useState("auto");
-  const [mobileSelection, setMobileSelection] = useState("artists");
+  const [setMobileSelection] = useState("artists");
   const menuNodeRef = useRef(null);
   const secondaryMenuNodeRef = useRef(null);
 

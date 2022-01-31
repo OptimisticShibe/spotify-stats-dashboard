@@ -1,6 +1,6 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Container, Nav, Navbar, NavbarBrand, Tab, Tabs } from "react-bootstrap";
+import { Button, Container, Nav, Navbar, NavbarBrand, Tab, Tabs } from "react-bootstrap";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import ArtistSearchResult from "./ArtistSearchResult";
 import FetchSpotifyData from "./FetchSpotifyData";
@@ -8,11 +8,15 @@ import InfoModal from "./InfoModal";
 import TrackSearchResult from "./TrackSearchResult";
 import UserDisplay from "./UserDisplay";
 
-// Display Results etc
-export default function Dashboard() {
-  const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData();
+export default function Dashboard({ token }) {
+  const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData({ token });
 
   const { handleShowModal, modalRender } = InfoModal();
+
+  const logout = () => {
+    localStorage.clear();
+    window.location.reload(true);
+  };
 
   return (
     <div className="Primary-Container">
@@ -26,9 +30,9 @@ export default function Dashboard() {
             <Navbar bg="dark" variant="dark">
               <Container>
                 <Nav className="me-auto py-2">
-                  <NavbarBrand>Spootifuu</NavbarBrand>
+                  <NavbarBrand>Top 5 Spotify</NavbarBrand>
                   {/* full display options */}
-                  <div className="d-flex px-5">{dataRender}</div>
+                  <div className="d-flex px-3">{dataRender}</div>
                 </Nav>
                 <Navbar.Text className="d-none d-lg-block">
                   Created by: <a href="https://github.com/OptimisticShibe">Optimistic Shibe</a>
@@ -37,6 +41,11 @@ export default function Dashboard() {
                   <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse />
                   {modalRender}
                 </Navbar.Text>
+                <Nav>
+                  <Button variant="outline-light" onClick={logout} className="mx-2">
+                    Logout
+                  </Button>
+                </Nav>
               </Container>
             </Navbar>
             <Container>

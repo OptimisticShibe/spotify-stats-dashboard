@@ -81,6 +81,10 @@ h2 {
   color: white;
 }
 
+.modal-body h2 {
+  color: black;
+}
+
 .user-container {
   height: 20vh;
 }
@@ -139,10 +143,6 @@ h2 {
   color: none;
 }
 
-.menu-item:hover {
-  /* lighter color for hover */
-}
-
 /* CSSTransition classes  */
 .menu-primary-enter {
   position: absolute;
@@ -167,8 +167,7 @@ h2 {
   transform: translateX(0%);
   transition: all var(--speed) ease;
 }
-.menu-secondary-exit {
-}
+
 .menu-secondary-exit-active {
   transform: translateX(110%);
   transition: all var(--speed) ease;
