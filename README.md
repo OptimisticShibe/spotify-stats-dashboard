@@ -5,6 +5,7 @@ Top 5 Spotify is a ReactJS experiment using the Spotify API. This app uses React
   Tracks and Artists will fetch a user's top tracks and artists within 1 of 3 possible timeframes allowed by the API: 4 weeks, 6 months, and All Time.
   User endpoint is just used to fetch the User Icon (if there is one).
   
+  ![top5spotifyDemoPic](https://user-images.githubusercontent.com/22552444/151829118-9daf0f8b-94b2-42d2-9dd6-400a30fe35fb.png)
   ---
 
   ### Technologies used in this app
