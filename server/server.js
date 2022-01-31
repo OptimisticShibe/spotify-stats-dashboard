@@ -3,6 +3,7 @@ const express = require("express");
 const SpotifyWebApi = require("spotify-web-api-node");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const app = express();
 app.use(cors());
@@ -51,4 +52,10 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.listen(3001);
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
+}
+const port = 3001;
+
+app.listen(port, () => console.log(`Server started on port ${port}`));

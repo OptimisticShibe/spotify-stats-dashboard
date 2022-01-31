@@ -35,7 +35,7 @@ export default function Dashboard({ token }) {
                   <div className="d-flex px-3">{dataRender}</div>
                 </Nav>
                 <Navbar.Text className="d-none d-lg-block">
-                  Created by: <a href="https://github.com/OptimisticShibe">Optimistic Shibe</a>
+                  Created by: <a href="https://github.com/OptimisticShibe">Rafiq Ramadan</a>
                 </Navbar.Text>
                 <Navbar.Text className="mx-2 clickable">
                   <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse />
