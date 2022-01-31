@@ -4,8 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js",
-    "start": "node server.js"
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "start": "node server.js",
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +15,7 @@
   "dependencies": {
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
+    "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "spotify-web-api-node": "^5.0.2"
   },
