@@ -5,9 +5,9 @@ import "./App.css";
 import useAuth from "./useAuth";
 
 function App() {
-  useAuth();
+  const token = useAuth();
   const isLoggedIn = localStorage.getItem("accessToken");
-  return isLoggedIn ? <Dashboard /> : <Login />;
+  return isLoggedIn ? <Dashboard token={token} /> : <Login />;
 }
 
 export default App;

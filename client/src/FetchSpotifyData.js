@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from "./useAuth";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "f655ecf166914d6b9ecf6d7abcc91c52",
 });
 
-export default function FetchSpotifyData() {
-  const accessToken = localStorage.getItem("accessToken");
+export default function FetchSpotifyData({ token }) {
+  const [accessToken, setAccessToken] = useState(token);
   const [trackResults, setTrackResults] = useState([]);
   const [artistResults, setArtistResults] = useState([]);
   const [userInfo, setUserInfo] = useState({});
@@ -25,9 +24,14 @@ export default function FetchSpotifyData() {
     { name: "All Time", value: "long_term" },
   ];
 
-  // Any time access token changes, set access token on api
   useEffect(() => {
-    console.log(accessToken);
+    if (token) {
+      return setAccessToken(token);
+    }
+    return setAccessToken(localStorage.getItem("accessToken"));
+  }, [token]);
+
+  useEffect(() => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
@@ -57,7 +61,7 @@ export default function FetchSpotifyData() {
       setArtistResults(
         res.body.items.map((artist) => {
           const largestAlbumImage = artist.images[1] ? artist.images[1] : artist.images[0];
-          // Genres returned by API are all lowercase
+          // Fix capitalization of genres
           const capitalizedGenre = artist.genres[0]
             .split(" ")
             .map((word) => {
