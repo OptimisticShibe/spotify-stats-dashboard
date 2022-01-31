@@ -33,7 +33,6 @@ export default function FetchSpotifyData({ token }) {
 
   useEffect(() => {
     if (!accessToken) return;
-    console.log(accessToken);
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
 
