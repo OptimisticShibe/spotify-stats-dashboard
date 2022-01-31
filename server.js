@@ -56,6 +56,8 @@ if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
 }
-const port = 3001;
-
+const port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 app.listen(port, () => console.log(`Server started on port ${port}`));
