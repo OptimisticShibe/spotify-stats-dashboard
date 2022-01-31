@@ -11,7 +11,7 @@ export default function InfoModal() {
   const modalBody = `
   Top 5 Spotify is a ReactJS experiment using the Spotify API. This app uses React Hooks to manage state, and gather data from 3 endpoints: **User, Top Tracks,** and **Top Artists**
 
-  Tracks and Artists will fetch a user's top tracks and artists within 1 of 3 possible timeframes allowed by the API: 4 weeks, 6 months, and All Time.
+  Tracks and Artists will fetch a user's top tracks and artists within 1 of 3 possible timeframes allowed by the API: **4 weeks, 6 months,** and **All Time.**
   User endpoint is just used to fetch the User Icon (if there is one).
   
   ---
