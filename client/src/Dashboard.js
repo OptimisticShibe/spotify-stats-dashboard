@@ -1,84 +1,106 @@
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Container, Nav, Navbar, NavbarBrand, Tab, Tabs } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Container, Dropdown, Nav, Navbar, NavDropdown, Tab, Tabs } from "react-bootstrap";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import ArtistSearchResult from "./ArtistSearchResult";
 import FetchSpotifyData from "./FetchSpotifyData";
 import InfoModal from "./InfoModal";
 import TrackSearchResult from "./TrackSearchResult";
-import UserDisplay from "./UserDisplay";
 
 export default function Dashboard({ token }) {
   const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData({ token });
 
   const { handleShowModal, modalRender } = InfoModal();
+  const [showName, setShowName] = useState(true);
 
   const logout = () => {
     localStorage.clear();
     window.location.reload(true);
   };
 
+  const onNameClick = () => {
+    setShowName(!showName);
+    console.log(showName);
+  };
+
   return (
-    <div className="Primary-Container">
+    <div>
       <div>
         {loading ? (
           <div className="loading-spinner d-flex">
             <ScaleLoader color={"#fff"} loading={loading} size={150} />
           </div>
         ) : (
-          <div>
-            <Navbar bg="dark" variant="dark">
-              <Container>
-                <Nav className="me-auto py-2">
-                  <NavbarBrand>Top 5 Spotify</NavbarBrand>
-                  {/* full display options */}
-                  <div className="d-flex px-3">{dataRender}</div>
-                </Nav>
-                <Navbar.Text className="d-none d-lg-block">
-                  Created by: <a href="https://github.com/OptimisticShibe/spotify-stats-dashboard">Rafiq Ramadan</a>
-                </Navbar.Text>
-                <Navbar.Text className="mx-2 clickable">
-                  <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse />
-                  {modalRender}
-                </Navbar.Text>
-                <Nav>
-                  <Button variant="outline-light" onClick={logout} className="mx-2">
-                    Logout
-                  </Button>
-                </Nav>
-              </Container>
+          <div className="primary-container">
+            <Navbar bg="dark" variant="dark" expand="md" className="px-3 mb-3 justify-content-between">
+              {/* <div className="d-flex align-items-center flex-grow-1 justify-content-between"> */}
+              <Navbar.Brand className="ml-0 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
+              <Navbar.Brand className="d-md-none d-xs-flex">O</Navbar.Brand>
+              <div className="timeframe-button-container">{dataRender}</div>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1" />
+              {/* <div className="d-flex align-items-center justify-content-around"> */}
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <NavDropdown title="Options" id="nav-dropdown">
+                  <NavDropdown.Item onClick={onNameClick}>Toggle Name</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
+                </NavDropdown>
+
+                <Button variant="outline-light" onClick={logout} className="mx-2">
+                  Logout
+                </Button>
+                <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse className="clickable d-none d-md-inline" />
+              </Navbar.Collapse>
+              {/* </div> */}
+              {modalRender}
+              {/* </div> */}
             </Navbar>
-            <Container>
-              <UserDisplay userInfo={userInfo} />
-              <div className="d-lg-none d-xl-none">
-                <Tabs transition={false} id="mobile-tab-display">
-                  <Tab eventKey="tracks" title="Top Tracks">
-                    {trackResults.map((track) => (
-                      <TrackSearchResult track={track} key={track.uri} />
-                    ))}
-                  </Tab>
-                  <Tab eventKey="artists" title="Top Artists" className="justify-content-center">
-                    {artistResults.map((artist) => (
-                      <ArtistSearchResult artist={artist} key={artist.uri} />
-                    ))}
-                  </Tab>
-                </Tabs>
+
+            <div className="user-container">
+              <div className="user-image-container">
+                <img
+                  src={userInfo.userImageUrl ? userInfo.userImageUrl : require("./assets/defaultUser.png")}
+                  className="rounded-circle border border-5 border-dark shadow img-fluid"
+                  alt="User"
+                />
               </div>
-              <div className="d-none d-lg-flex flex-row justify-content-around">
-                <div className="d-flex flex-column data-container mx-3 align-items-center px-5">
-                  <h2>Top Artists</h2>
-                  {artistResults.map((artist) => (
-                    <ArtistSearchResult artist={artist} key={artist.uri} />
-                  ))}
-                </div>
-                <div className="d-flex flex-column data-container mx-3 align-items-center px-5">
-                  <h2>Top Tracks</h2>
+              <div className="d-flex mb-2 justify-content-center">
+                <h2 className={showName ? undefined : "d-none"}>{userInfo.displayName}</h2>
+              </div>
+            </div>
+            {/* mobile display */}
+            <div className="d-md-none d-xs-flex">
+              <Tabs transition={false} id="mobile-tab-display">
+                <Tab eventKey="tracks" title="Top Tracks">
                   {trackResults.map((track) => (
                     <TrackSearchResult track={track} key={track.uri} />
                   ))}
-                </div>
+                </Tab>
+                <Tab eventKey="artists" title="Top Artists" className="justify-content-center">
+                  {artistResults.map((artist) => (
+                    <ArtistSearchResult artist={artist} key={artist.uri} />
+                  ))}
+                </Tab>
+              </Tabs>
+            </div>
+            {/* full display options */}
+            <div className="d-none d-md-grid desktop-data-container">
+              <div className="desktop-sub-data-container">
+                <h2 className="text-center">Top Artists</h2>
+                {artistResults.map((artist) => (
+                  <ArtistSearchResult artist={artist} key={artist.uri} />
+                ))}
               </div>
-            </Container>
+              <div className="desktop-sub-data-container">
+                <h2 className="text-center">Top Tracks</h2>
+                {trackResults.map((track) => (
+                  <TrackSearchResult track={track} key={track.uri} />
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>

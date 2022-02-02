@@ -106,11 +106,12 @@ export default function FetchSpotifyData({ token }) {
     loading,
     dataRender: (
       <>
-        <ButtonGroup>
+        <ButtonGroup className="timeframe-button-group">
           {radios.map((radio, idx) => {
             return (
               <ToggleButton
                 key={idx}
+                className="timeframe-radio"
                 id={`radio-${idx}`}
                 type="radio"
                 variant="outline-light"

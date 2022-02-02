@@ -8,9 +8,50 @@
   --speed: 500ms;
 }
 
+@media screen and (max-width: 768px) {
+  .timeframe-button-container {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 110%;
+  }
+  .timeframe-button-container {
+    display: flex;
+    float: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+@media screen and (min-width: 1024px) {
+  html {
+    font-size: 120%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 130%;
+  }
+}
+
 a {
   color: var(--text-color);
   text-decoration: none;
+}
+
+.nav-link {
+  color: var(--text-color);
+}
+
+.login-page-text {
+  text-align: center;
+}
+.login-page-credits a {
+  text-decoration: underline;
 }
 
 .clickable:hover {
@@ -21,6 +62,8 @@ a {
   background-color: #282c34;
 }
 body {
+  height: 100vh;
+  width: 100vw;
   background-color: #2f446d;
 }
 
@@ -37,12 +80,12 @@ body {
 
 .text-main {
   color: white;
-  font-size: 24px;
+  font-size: 1.1rem;
   overflow: hidden;
   /* position: relative; */
 }
 
-.text-main div {
+.text-main > div {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -50,10 +93,77 @@ body {
 .text-sub {
   color: rgb(185, 185, 185);
 }
+
+.timeframe-radio {
+  font-size: 0.8rem;
+  /* display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: hidden; */
+  /* flex: 1; */
+}
+
+.primary-container {
+  position: absolute;
+  width: 100vw;
+  /* min-height: 100vh; */
+  height: 100vh;
+  top: 0;
+}
+
+.desktop-data-container {
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.desktop-sub-data-container {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  max-width: 400px;
+  justify-content: center;
+}
+
+.desktop-sub-data-container > .item-bg > .data-container {
+  height: 10vh;
+}
+
+/* .timeframe-button-container {
+  display: flex;
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+.rightmost-nav {
+  display: flex;
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(80%, -50%);
+  align-items: center;
+  margin-right: 2rem;
+}
+
+/* Overriding Navbar Collapse settings */
+#responsive-navbar-nav {
+  flex-grow: 0;
+}
+
+.timeframe-button-group > .btn {
+  display: flex;
+  align-content: center;
+}
+
 .item-bg {
   background-color: #465f91;
+  /* max-width: 400px; */
   /* border-radius: 15px; */
-  width: 35vw;
+  /* width: 35vw; */
   /* position: relative; */
 }
 
@@ -68,15 +178,6 @@ ul.nav {
   justify-content: center;
 }
 
-@media (max-width: 992px) {
-  .item-bg {
-    width: 50vw;
-  }
-  .btn {
-    width: 15vw;
-  }
-}
-
 h2 {
   color: white;
 }
@@ -86,29 +187,60 @@ h2 {
 }
 
 .user-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100%; */
+  /* width: 100%; */
   height: 20vh;
+  padding-top: 1.5rem;
+  /* padding-bottom: 1rem; */
+  /* flex-grow: 1; */
+  /* flex-shrink: 1; */
+  /* overflow: hidden; */
+  /* min-height: 10vh; */
+}
+
+.user-image-container {
+  display: flex;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.user-image-container img {
+  display: flex;
+  flex-grow: 1;
+  /* max-height: 15vh; */
+  /* width: auto; */
+  /* flex-grow: 1; */
+  /* max-height: 20vh; */
+  /* flex-shrink: 1; */
+  height: 100%;
+  /* width: 100%; */
 }
 
 .data-container {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  align-items: center;
+  display: flex;
+}
+
+.tab-pane > .item-bg > .data-container {
+  height: 10vh;
+  width: 90vw;
 }
 
 .data-container img {
-  /* width: 100%; */
-  /* height: 100%; */
-  min-width: 104px;
-  max-height: 104px;
-  align-self: stretch;
-  /* align-items: stretch; */
-  /* position: absolute; */
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
+/* Dropdown */
 #mobile-menu {
-  /* position: fixed;
-  top: 0;
-  left: 10vw; */
   border: var(--border);
   border-radius: var(--border-radius);
   padding: 5px;
@@ -117,8 +249,7 @@ h2 {
   cursor: pointer;
 }
 
-/* Dropdown */
-.dropdown {
+/* .dropdown {
   position: absolute;
   top: 80px;
   width: 300px;
@@ -128,7 +259,7 @@ h2 {
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: height var(--speed) ease;
-}
+} */
 
 .menu {
   width: 100%;
@@ -186,11 +317,4 @@ h2 {
 .menu-item-text {
   position: absolute;
   left: 3em;
-}
-
-.login-page-text {
-  text-align: center;
-}
-.login-page-credits a {
-  text-decoration: underline;
 }

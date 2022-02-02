@@ -6,7 +6,7 @@ export default function ArtistSearchResult({ artist }) {
     <div className="item-bg m-2 shadow">
       <div className="d-flex data-container">
         <img src={artist.imageUrl} alt={artist.artistName} />
-        <div className="m-3 text-main">
+        <div className="m-2 text-main">
           <OverlayTrigger placement="top" overlay={<Tooltip id="artist-result-artist-name">{artist.artistName}</Tooltip>}>
             <div>{artist.artistName}</div>
           </OverlayTrigger>
