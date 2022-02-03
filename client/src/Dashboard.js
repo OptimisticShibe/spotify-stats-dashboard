@@ -21,7 +21,6 @@ export default function Dashboard({ token }) {
 
   const onNameClick = () => {
     setShowName(!showName);
-    console.log(showName);
   };
 
   return (
@@ -33,30 +32,29 @@ export default function Dashboard({ token }) {
           </div>
         ) : (
           <div className="primary-container">
-            <Navbar bg="dark" variant="dark" expand="md" className="px-3 mb-3 justify-content-between">
-              {/* <div className="d-flex align-items-center flex-grow-1 justify-content-between"> */}
+            <Navbar bg="dark" variant="dark" expand="md" className="p-2 mb-2 justify-content-between">
               <Navbar.Brand className="ml-0 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
               <Navbar.Brand className="d-md-none d-xs-flex">O</Navbar.Brand>
               <div className="timeframe-button-container">{dataRender}</div>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1" />
-              {/* <div className="d-flex align-items-center justify-content-around"> */}
               <Navbar.Collapse id="responsive-navbar-nav">
                 <NavDropdown title="Options" id="nav-dropdown">
                   <NavDropdown.Item onClick={onNameClick}>Toggle Name</NavDropdown.Item>
                   <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
                   <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
+                  <NavDropdown.Item href="https://github.com/OptimisticShibe/spotify-stats-dashboard" target="_blank">
+                    Github Repository
+                  </NavDropdown.Item>
                 </NavDropdown>
 
-                <Button variant="outline-light" onClick={logout} className="mx-2">
+                <Button variant="outline-light" onClick={logout} className="mx-2 d-block">
                   Logout
                 </Button>
-                <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse className="clickable d-none d-md-inline" />
+                <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse className="clickable d-none d-md-flex" />
+                <Navbar.Text className="d-md-none d-xs-block mt-2">About This App</Navbar.Text>
               </Navbar.Collapse>
-              {/* </div> */}
               {modalRender}
-              {/* </div> */}
             </Navbar>
 
             <div className="user-container">
@@ -68,7 +66,7 @@ export default function Dashboard({ token }) {
                 />
               </div>
               <div className="d-flex mb-2 justify-content-center">
-                <h2 className={showName ? undefined : "d-none"}>{userInfo.displayName}</h2>
+                <h4 className={showName ? undefined : "d-none"}>{userInfo.displayName}</h4>
               </div>
             </div>
             {/* mobile display */}
@@ -89,13 +87,13 @@ export default function Dashboard({ token }) {
             {/* full display options */}
             <div className="d-none d-md-grid desktop-data-container">
               <div className="desktop-sub-data-container">
-                <h2 className="text-center">Top Artists</h2>
+                <h4 className="text-center">Top Artists</h4>
                 {artistResults.map((artist) => (
                   <ArtistSearchResult artist={artist} key={artist.uri} />
                 ))}
               </div>
               <div className="desktop-sub-data-container">
-                <h2 className="text-center">Top Tracks</h2>
+                <h4 className="text-center">Top Tracks</h4>
                 {trackResults.map((track) => (
                   <TrackSearchResult track={track} key={track.uri} />
                 ))}

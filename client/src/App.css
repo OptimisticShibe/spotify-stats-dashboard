@@ -8,6 +8,13 @@
   --speed: 500ms;
 }
 
+/* Remove boostrap Blue link hover */
+a:hover,
+.nav-link:focus,
+.nav-link:hover {
+  color: #fff !important;
+}
+
 @media screen and (max-width: 768px) {
   .timeframe-button-container {
     display: flex;
@@ -115,6 +122,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   justify-items: center;
+  height: 67vh;
 }
 
 .desktop-sub-data-container {
@@ -125,7 +133,7 @@ body {
   justify-content: center;
 }
 
-.desktop-sub-data-container > .item-bg > .data-container {
+.desktop-sub-data-container .data-container {
   height: 10vh;
 }
 
@@ -137,6 +145,11 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 } */
+
+.modal-body a {
+  color: #242526;
+  text-decoration: underline;
+}
 
 .rightmost-nav {
   display: flex;
@@ -159,14 +172,6 @@ body {
   align-content: center;
 }
 
-.item-bg {
-  background-color: #465f91;
-  /* max-width: 400px; */
-  /* border-radius: 15px; */
-  /* width: 35vw; */
-  /* position: relative; */
-}
-
 ul.nav {
   display: flex;
   justify-content: center;
@@ -178,7 +183,8 @@ ul.nav {
   justify-content: center;
 }
 
-h2 {
+h2,
+h4 {
   color: white;
 }
 
@@ -191,15 +197,8 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* height: 100%; */
-  /* width: 100%; */
   height: 20vh;
-  padding-top: 1.5rem;
-  /* padding-bottom: 1rem; */
-  /* flex-grow: 1; */
-  /* flex-shrink: 1; */
-  /* overflow: hidden; */
-  /* min-height: 10vh; */
+  margin-top: 2rem;
 }
 
 .user-image-container {
@@ -211,13 +210,20 @@ h2 {
 .user-image-container img {
   display: flex;
   flex-grow: 1;
-  /* max-height: 15vh; */
-  /* width: auto; */
-  /* flex-grow: 1; */
-  /* max-height: 20vh; */
-  /* flex-shrink: 1; */
   height: 100%;
-  /* width: 100%; */
+  width: 100%;
+}
+
+.item-bg {
+  background-color: #465f91;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-bg:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .data-container {
@@ -226,14 +232,40 @@ h2 {
   white-space: nowrap;
   align-items: center;
   display: flex;
+  height: 10vh;
 }
 
-.tab-pane > .item-bg > .data-container {
+.tab-pane .data-container {
   height: 10vh;
   width: 90vw;
 }
+.spotify-content-link {
+  height: 100%;
+  width: 100%;
+}
 
-.data-container img {
+.spotify-content-link-icon-desktop {
+  align-self: flex-end;
+  position: absolute;
+  transform: translate(-100%, 100%);
+  opacity: 0%;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.spotify-content-link-icon-mobile {
+  align-self: flex-end;
+  position: absolute;
+  transform: translate(-100%, 100%);
+  opacity: 50%;
+  text-decoration: none;
+}
+
+.item-bg:hover > .spotify-content-link-icon-desktop {
+  opacity: 80%;
+}
+
+.result-image {
   height: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
