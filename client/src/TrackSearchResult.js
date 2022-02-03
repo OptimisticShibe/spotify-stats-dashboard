@@ -10,9 +10,8 @@ export default function TrackSearchResult({ track }) {
         <FontAwesomeIcon icon={faExternalLinkAlt} size="lg" className="spotify-content-link-icon-desktop  d-none d-md-block" />
         <FontAwesomeIcon icon={faExternalLinkAlt} size="lg" className="spotify-content-link-icon-mobile d-md-none d-xs-block" />
         <div className="d-flex data-container">
-          <OverlayTrigger placement="top" overlay={<Tooltip id="track-result-spotify-link">{track.title} on Spotify</Tooltip>}>
-            <img src={track.albumUrl} alt={track} className="result-image"></img>
-          </OverlayTrigger>
+          <img src={track.albumUrl} alt={track} className="result-image"></img>
+
           <div className="m-3 text-main">
             <OverlayTrigger placement="top" overlay={<Tooltip id="track-result-track-name">{track.title}</Tooltip>}>
               <div>{track.title}</div>

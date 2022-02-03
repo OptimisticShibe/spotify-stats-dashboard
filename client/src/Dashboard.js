@@ -1,7 +1,8 @@
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { faFont, faQuestionCircle, faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useState } from "react";
-import { Button, Container, Dropdown, Nav, Navbar, NavDropdown, Tab, Tabs } from "react-bootstrap";
+import { Button, Nav, Navbar, NavDropdown, Tab, Tabs } from "react-bootstrap";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import ArtistSearchResult from "./ArtistSearchResult";
 import FetchSpotifyData from "./FetchSpotifyData";
@@ -13,6 +14,7 @@ export default function Dashboard({ token }) {
 
   const { handleShowModal, modalRender } = InfoModal();
   const [showName, setShowName] = useState(true);
+  const [showUserImage, setShowUserImage] = useState(true);
 
   const logout = () => {
     localStorage.clear();
@@ -21,6 +23,9 @@ export default function Dashboard({ token }) {
 
   const onNameClick = () => {
     setShowName(!showName);
+  };
+  const onUserImageClick = () => {
+    setShowUserImage(!showUserImage);
   };
 
   return (
@@ -36,37 +41,65 @@ export default function Dashboard({ token }) {
               <Navbar.Brand className="ml-0 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
               <Navbar.Brand className="d-md-none d-xs-flex">O</Navbar.Brand>
               <div className="timeframe-button-container">{dataRender}</div>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1" />
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <NavDropdown title="Options" id="nav-dropdown">
-                  <NavDropdown.Item onClick={onNameClick}>Toggle Name</NavDropdown.Item>
-                  <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
-                  <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1 d-md-none d-xs-inline" />
+              <div className="d-flex">
+                <NavDropdown title="Options" id="nav-dropdown" className="d-none d-md-block">
+                  <NavDropdown.Item onClick={onNameClick}>
+                    <FontAwesomeIcon icon={faFont} style={{ margin: "0px 1px" }}></FontAwesomeIcon>&nbsp;Toggle Name
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={onUserImageClick}>
+                    <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>&nbsp;Toggle User Image
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider className="d-md-none d-xs-blck" />
+                  <NavDropdown.Item onClick={logout} className="d-md-none d-xs-block">
+                    <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>&nbsp;Logout
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="https://github.com/OptimisticShibe/spotify-stats-dashboard" target="_blank">
-                    Github Repository
+                    <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>&nbsp;Github Repository
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleShowModal}>
+                    <FontAwesomeIcon icon={faQuestionCircle} />
+                    &nbsp;About This App
                   </NavDropdown.Item>
                 </NavDropdown>
 
-                <Button variant="outline-light" onClick={logout} className="mx-2 d-block">
-                  Logout
-                </Button>
-                <FontAwesomeIcon icon={faQuestionCircle} onClick={handleShowModal} size="lg" inverse className="clickable d-none d-md-flex" />
-                <Navbar.Text className="d-md-none d-xs-block mt-2">About This App</Navbar.Text>
-              </Navbar.Collapse>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                  <div className="d-md-none d-xs-block">
+                    <Nav.Link onClick={onNameClick}>
+                      <FontAwesomeIcon icon={faFont} style={{ margin: "0px 1px" }}></FontAwesomeIcon>&nbsp;Toggle Name
+                    </Nav.Link>
+                    <Nav.Link onClick={onUserImageClick}>
+                      <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>&nbsp;Toggle User Image
+                    </Nav.Link>
+                    <div className="mobile-menu-horizontal-line" />
+                    <Nav.Link href="https://github.com/OptimisticShibe/spotify-stats-dashboard" target="_blank">
+                      <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>&nbsp;Github Repository
+                    </Nav.Link>
+                    <Nav.Link onClick={handleShowModal}>
+                      <FontAwesomeIcon icon={faQuestionCircle} inverse />
+                      &nbsp;About This App
+                    </Nav.Link>
+                    <div className="mobile-menu-horizontal-line" />
+                    <Nav.Link onClick={logout}>
+                      <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>&nbsp;Logout
+                    </Nav.Link>
+                  </div>
+
+                  <Button variant="outline-light" onClick={logout} className="mx-2 d-none d-md-block">
+                    Logout
+                  </Button>
+                </Navbar.Collapse>
+              </div>
               {modalRender}
             </Navbar>
 
-            <div className="user-container">
-              <div className="user-image-container">
-                <img
-                  src={userInfo.userImageUrl ? userInfo.userImageUrl : require("./assets/defaultUser.png")}
-                  className="rounded-circle border border-5 border-dark shadow img-fluid"
-                  alt="User"
-                />
+            <div className={showUserImage || showName ? "user-container" : "d-none"}>
+              <div className={showUserImage ? "user-image-container" : "d-none"}>
+                <img src={userInfo.userImageUrl ? userInfo.userImageUrl : require("./assets/defaultUser.png")} className="user-image" alt="User" />
               </div>
-              <div className="d-flex mb-2 justify-content-center">
-                <h4 className={showName ? undefined : "d-none"}>{userInfo.displayName}</h4>
+              <div className={showName ? "user-name-container" : "d-none"}>
+                <h3>{userInfo.displayName}</h3>
               </div>
             </div>
             {/* mobile display */}

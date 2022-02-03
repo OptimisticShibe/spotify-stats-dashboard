@@ -2,6 +2,7 @@
   --bg: #242526;
   --bg-accent: #484a4d;
   --text-color: #dadce1;
+  --dark-text-color: #1b1b1c;
   --nav-size: 60px;
   --border: 1px solid #474a4d;
   --border-radius: 8px;
@@ -12,7 +13,11 @@
 a:hover,
 .nav-link:focus,
 .nav-link:hover {
-  color: #fff !important;
+  color: var(--text-color);
+}
+
+.nav-link .active {
+  color: var(--dark-text-color);
 }
 
 @media screen and (max-width: 768px) {
@@ -41,8 +46,16 @@ a:hover,
 }
 @media screen and (min-width: 1200px) {
   html {
-    font-size: 130%;
+    font-size: 120%;
   }
+}
+
+.primary-container {
+  position: absolute;
+  width: 100vw;
+  /* min-height: 100vh; */
+  height: 100vh;
+  top: 0;
 }
 
 a {
@@ -110,31 +123,30 @@ body {
   /* flex: 1; */
 }
 
-.primary-container {
-  position: absolute;
-  width: 100vw;
-  /* min-height: 100vh; */
-  height: 100vh;
-  top: 0;
-}
-
 .desktop-data-container {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   justify-items: center;
-  height: 67vh;
+  height: 60vh;
+  margin-top: 1rem;
 }
 
 .desktop-sub-data-container {
   display: flex;
   flex-direction: column;
-  width: 40vw;
+  width: 50vw;
   max-width: 400px;
   justify-content: center;
+  flex-shrink: 1;
 }
 
 .desktop-sub-data-container .data-container {
-  height: 10vh;
+  height: 9vh;
+}
+
+.mobile-menu-horizontal-line {
+  border-bottom: 2px solid #484a4d;
+  width: 100%;
 }
 
 /* .timeframe-button-container {
@@ -184,6 +196,7 @@ ul.nav {
 }
 
 h2,
+h3,
 h4 {
   color: white;
 }
@@ -197,21 +210,33 @@ h4 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 20vh;
   margin-top: 2rem;
+}
+
+.user-name-container {
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 1rem; */
 }
 
 .user-image-container {
   display: flex;
   height: 100%;
   flex-grow: 1;
+  height: 20vh;
+  margin-top: -1rem;
 }
 
-.user-image-container img {
+.user-image {
   display: flex;
   flex-grow: 1;
   height: 100%;
   width: 100%;
+  border: 1px solid;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: #212529;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 .item-bg {
@@ -282,6 +307,7 @@ h4 {
 }
 
 /* .dropdown {
+
   position: absolute;
   top: 80px;
   width: 300px;

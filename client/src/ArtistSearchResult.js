@@ -10,9 +10,8 @@ export default function ArtistSearchResult({ artist }) {
         <FontAwesomeIcon icon={faExternalLinkAlt} size="lg" className="spotify-content-link-icon-desktop d-none d-md-block" />
         <FontAwesomeIcon icon={faExternalLinkAlt} size="lg" className="spotify-content-link-icon-mobile d-md-none d-xs-block" />
         <div className="d-flex data-container">
-          <OverlayTrigger placement="top" overlay={<Tooltip id="track-result-spotify-link">{artist.artistName} on Spotify</Tooltip>}>
-            <img src={artist.imageUrl} alt={artist.artistName} className="result-image" />
-          </OverlayTrigger>
+          <img src={artist.imageUrl} alt={artist.artistName} className="result-image" />
+
           <div className="m-2 text-main">
             <OverlayTrigger placement="top" overlay={<Tooltip id="artist-result-artist-name">{artist.artistName}</Tooltip>}>
               <div>{artist.artistName}</div>
