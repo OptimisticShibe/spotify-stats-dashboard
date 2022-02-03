@@ -46,6 +46,7 @@ export default function FetchSpotifyData({ token }) {
           return {
             artist: track.artists[0].name,
             title: track.name,
+            trackLink: track.external_urls.spotify,
             uri: track.uri,
             albumUrl: largestAlbumImage.url,
           };
@@ -71,6 +72,7 @@ export default function FetchSpotifyData({ token }) {
           return {
             artistName: artist.name,
             uri: artist.uri,
+            artistLink: artist.external_urls.spotify,
             imageUrl: largestAlbumImage.url,
             genre: capitalizedGenre,
           };
@@ -106,11 +108,12 @@ export default function FetchSpotifyData({ token }) {
     loading,
     dataRender: (
       <>
-        <ButtonGroup>
+        <ButtonGroup className="timeframe-button-group">
           {radios.map((radio, idx) => {
             return (
               <ToggleButton
                 key={idx}
+                className="timeframe-radio"
                 id={`radio-${idx}`}
                 type="radio"
                 variant="outline-light"
