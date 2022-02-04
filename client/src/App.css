@@ -1,6 +1,7 @@
 :root {
-  --bg: #242526;
-  --bg-accent: #484a4d;
+  --bg: #2f446d;
+  --bg-accent: #d6a319;
+  --bg-nav: #1f293e;
   --text-color: #dadce1;
   --dark-text-color: #1b1b1c;
   --nav-size: 60px;
@@ -14,6 +15,10 @@ a:hover,
 .nav-link:focus,
 .nav-link:hover {
   color: var(--text-color);
+}
+
+.nav-main {
+  background-color: var(--bg-nav);
 }
 
 .nav-link .active {
@@ -78,13 +83,10 @@ a {
   cursor: pointer;
 }
 
-.Login-header {
-  background-color: #282c34;
-}
 body {
   height: 100vh;
   width: 100vw;
-  background-color: #2f446d;
+  background-color: var(--bg);
 }
 
 .loading-spinner {
@@ -235,7 +237,7 @@ h4 {
   border: 1px solid;
   border-radius: 50%;
   border-width: 5px;
-  border-color: #212529;
+  border-color: var(--bg-nav);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 

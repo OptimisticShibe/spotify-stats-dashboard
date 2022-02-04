@@ -12,7 +12,7 @@ export default function Login() {
   const info1 = `
   ---
 
-  ##### See your top 5 Spotify Tracks & Artists across time with this simple app`;
+  ##### See your top 5 Spotify Tracks & Artists across time`;
 
   const info2 = `
   **Don't have a Spotify account?**`;
@@ -23,13 +23,9 @@ export default function Login() {
   (Under Construction)
   `;
 
-  const credits = `
-  created by **Rafiq Ramadan** | See the code on [github](https://github.com/OptimisticShibe/spotify-stats-dashboard)
-  `;
-
   return (
-    <div style={{ backgroundColor: "#282c34" }}>
-      <Container className="d-flex justify-content-center align-items-center flex-column" style={{ minHeight: "100vh", color: "white" }}>
+    <div>
+      <Container className="login-page-container d-flex justify-content-center align-items-center flex-column" style={{ minHeight: "100vh", color: "white" }}>
         <h1 className="p-3">Top 5 Spotify</h1>
         <div className="login-page-text">
           <ReactMarkdown children={info1} className="my-3" />
@@ -41,15 +37,6 @@ export default function Login() {
             <ReactMarkdown children={demoButton} />
           </Button>
         </div>
-
-        <div className="login-page-credits">
-          <ReactMarkdown children={credits} className="my-4" />
-        </div>
-
-        {/* <div className="d-flex align-items-center">
-          Star Icon Was Here™️
-          <p className="p-3">Text goes here</p>
-        </div> */}
       </Container>
     </div>
   );

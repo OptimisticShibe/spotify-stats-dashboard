@@ -37,7 +37,7 @@ export default function Dashboard({ token }) {
           </div>
         ) : (
           <div className="primary-container">
-            <Navbar bg="dark" variant="dark" expand="md" className="p-2 mb-2 justify-content-between">
+            <Navbar variant="dark" expand="md" className="p-2 mb-2 justify-content-between nav-main">
               <Navbar.Brand className="ml-0 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
               <Navbar.Brand className="d-md-none d-xs-flex">O</Navbar.Brand>
               <div className="timeframe-button-container">{dataRender}</div>
