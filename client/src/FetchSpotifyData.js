@@ -24,6 +24,9 @@ export default function FetchSpotifyData({ token }) {
     { name: "All Time", value: "long_term" },
   ];
 
+  const artists = [];
+  const user = {};
+
   useEffect(() => {
     if (token) {
       return setAccessToken(token);
@@ -38,22 +41,58 @@ export default function FetchSpotifyData({ token }) {
 
   // Get Top Tracks
   useEffect(() => {
-    if (!accessToken) return setTrackResults([]);
-    spotifyApi.getMyTopTracks({ limit: 5, time_range: timeRange }).then((res) => {
-      setTrackResults(
-        res.body.items.map((track) => {
-          const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
+    if (!accessToken) return;
+    const TIME_RANGE_TRACKS = ["short_term", "medium_term", "long_term"];
+    const artistData = [];
+    Promise.all(
+      TIME_RANGE_TRACKS.map(async (timeRange) => {
+        const trackData = await spotifyApi.getMyTopTracks({ limit: 5, time_range: timeRange }).then((res) => {
           return {
-            artist: track.artists[0].name,
-            title: track.name,
-            trackLink: track.external_urls.spotify,
-            uri: track.uri,
-            albumUrl: largestAlbumImage.url,
+            time_range: timeRange,
+            track_data: res.body.items.map((track) => {
+              const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
+              return {
+                artist: track.artists[0].name,
+                title: track.name,
+                trackLink: track.external_urls.spotify,
+                uri: track.uri,
+                albumUrl: largestAlbumImage.url,
+              };
+            }),
           };
-        }),
-      );
-    });
-  }, [timeRange, accessToken]);
+        });
+        return trackData;
+      }),
+    ).then((values) => localStorage.setItem("trackData", JSON.stringify(values)));
+
+    Promise.all(
+      TIME_RANGE_TRACKS.map(async (timeRange) => {
+        await spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
+          artistData.push({
+            time_range: timeRange,
+            artist_data: res.body.items.map((artist) => {
+              const largestAlbumImage = artist.images[1] ? artist.images[1] : artist.images[0];
+              // Fix capitalization of genres
+              const capitalizedGenre = artist.genres[0]
+                .split(" ")
+                .map((word) => {
+                  return word[0].toUpperCase() + word.substring(1);
+                })
+                .join(" ");
+              return {
+                artistName: artist.name,
+                uri: artist.uri,
+                artistLink: artist.external_urls.spotify,
+                imageUrl: largestAlbumImage.url,
+                genre: capitalizedGenre,
+              };
+            }),
+          });
+        });
+        return artistData;
+      }),
+    ).then((values) => localStorage.setItem("artistData", JSON.stringify(values)));
+  }, [accessToken]);
 
   // Get Top Artists
   useEffect(() => {
