@@ -18,7 +18,6 @@ export default function useAuth() {
         code,
       })
       .then((res) => {
-        localStorage.clear();
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
         setExpiresIn(res.data.expiresIn);
@@ -28,6 +27,7 @@ export default function useAuth() {
         setCode("");
       })
       .catch(() => {
+        localStorage.removeItem("accessToken");
         window.location = "/";
       });
   }, [code]);
@@ -46,6 +46,7 @@ export default function useAuth() {
           localStorage.setItem("expiresIn", expiresIn);
         })
         .catch(() => {
+          localStorage.removeItem("accessToken");
           window.location = "/";
         });
     }, (expiresIn - 60) * 1000);
@@ -55,7 +56,6 @@ export default function useAuth() {
 
   useEffect(() => {
     if (!accessToken) return;
-    localStorage.clear();
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("expiresIn", expiresIn);
