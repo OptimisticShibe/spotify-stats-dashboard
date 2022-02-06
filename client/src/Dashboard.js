@@ -41,8 +41,29 @@ export default function Dashboard({ token }) {
               <Navbar.Brand className="ml-0 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
               <Navbar.Brand className="d-md-none d-xs-flex">O</Navbar.Brand>
               <div className="timeframe-button-container">{dataRender}</div>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1 d-md-none d-xs-inline" />
-              <div className="d-flex">
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1 d-md-none d-xs-inline responsive-navbar-button" />
+
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <div className="d-md-none d-xs-block">
+                  <Nav.Link onClick={onNameClick}>
+                    <FontAwesomeIcon icon={faFont} style={{ margin: "0px 1px" }}></FontAwesomeIcon>&nbsp;Toggle Name
+                  </Nav.Link>
+                  <Nav.Link onClick={onUserImageClick}>
+                    <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>&nbsp;Toggle User Image
+                  </Nav.Link>
+                  <div className="mobile-menu-horizontal-line" />
+                  <Nav.Link href="https://github.com/OptimisticShibe/spotify-stats-dashboard" target="_blank">
+                    <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>&nbsp;Github Repository
+                  </Nav.Link>
+                  <Nav.Link onClick={handleShowModal}>
+                    <FontAwesomeIcon icon={faQuestionCircle} inverse />
+                    &nbsp;About This App
+                  </Nav.Link>
+                  <div className="mobile-menu-horizontal-line" />
+                  <Nav.Link onClick={logout}>
+                    <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>&nbsp;Logout
+                  </Nav.Link>
+                </div>
                 <NavDropdown title="Options" id="nav-dropdown" className="d-none d-md-block">
                   <NavDropdown.Item onClick={onNameClick}>
                     <FontAwesomeIcon icon={faFont} style={{ margin: "0px 1px" }}></FontAwesomeIcon>&nbsp;Toggle Name
@@ -63,34 +84,10 @@ export default function Dashboard({ token }) {
                     &nbsp;About This App
                   </NavDropdown.Item>
                 </NavDropdown>
-
-                <Navbar.Collapse id="responsive-navbar-nav">
-                  <div className="d-md-none d-xs-block">
-                    <Nav.Link onClick={onNameClick}>
-                      <FontAwesomeIcon icon={faFont} style={{ margin: "0px 1px" }}></FontAwesomeIcon>&nbsp;Toggle Name
-                    </Nav.Link>
-                    <Nav.Link onClick={onUserImageClick}>
-                      <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>&nbsp;Toggle User Image
-                    </Nav.Link>
-                    <div className="mobile-menu-horizontal-line" />
-                    <Nav.Link href="https://github.com/OptimisticShibe/spotify-stats-dashboard" target="_blank">
-                      <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon>&nbsp;Github Repository
-                    </Nav.Link>
-                    <Nav.Link onClick={handleShowModal}>
-                      <FontAwesomeIcon icon={faQuestionCircle} inverse />
-                      &nbsp;About This App
-                    </Nav.Link>
-                    <div className="mobile-menu-horizontal-line" />
-                    <Nav.Link onClick={logout}>
-                      <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>&nbsp;Logout
-                    </Nav.Link>
-                  </div>
-
-                  <Button variant="outline-light" onClick={logout} className="mx-2 d-none d-md-block">
-                    Logout
-                  </Button>
-                </Navbar.Collapse>
-              </div>
+                <Button variant="outline-light" onClick={logout} className="mx-2 d-none d-md-block">
+                  Logout
+                </Button>
+              </Navbar.Collapse>
               {modalRender}
             </Navbar>
 
