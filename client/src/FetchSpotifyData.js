@@ -36,62 +36,100 @@ export default function FetchSpotifyData({ token }) {
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
 
-  // Get Top Tracks
-  useEffect(() => {
-    if (!accessToken) return setTrackResults([]);
-    spotifyApi.getMyTopTracks({ limit: 5, time_range: timeRange }).then((res) => {
-      setTrackResults(
-        res.body.items.map((track) => {
-          const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
-          return {
-            artist: track.artists[0].name,
-            title: track.name,
-            trackLink: track.external_urls.spotify,
-            uri: track.uri,
-            albumUrl: largestAlbumImage.url,
-          };
-        }),
-      );
-    });
-  }, [timeRange, accessToken]);
+  // https://stackoverflow.com/questions/61178240/useeffect-does-not-listen-for-localstorage/61178371#61178371
 
-  // Get Top Artists
+  // Fetch data
   useEffect(() => {
-    if (!accessToken) return setTrackResults([]);
-    spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
-      setArtistResults(
-        res.body.items.map((artist) => {
-          const largestAlbumImage = artist.images[1] ? artist.images[1] : artist.images[0];
-          // Fix capitalization of genres
-          const capitalizedGenre = artist.genres[0]
-            .split(" ")
-            .map((word) => {
-              return word[0].toUpperCase() + word.substring(1);
-            })
-            .join(" ");
+    if (!accessToken) return;
+    const TIME_RANGE_TRACKS = ["short_term", "medium_term", "long_term"];
+    Promise.all(
+      TIME_RANGE_TRACKS.map(async (timeRange) => {
+        const trackData = await spotifyApi.getMyTopTracks({ limit: 5, time_range: timeRange }).then((res) => {
           return {
-            artistName: artist.name,
-            uri: artist.uri,
-            artistLink: artist.external_urls.spotify,
-            imageUrl: largestAlbumImage.url,
-            genre: capitalizedGenre,
+            time_range: timeRange,
+            track_data: res.body.items.map((track) => {
+              const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
+              return {
+                artist: track.artists[0].name,
+                title: track.name,
+                trackLink: track.external_urls.spotify,
+                uri: track.uri,
+                albumUrl: largestAlbumImage.url,
+              };
+            }),
           };
-        }),
-      );
-    });
-  }, [timeRange, accessToken]);
+        });
+        return trackData;
+      }),
+    ).then((values) => localStorage.setItem("trackData", JSON.stringify(values)));
+
+    Promise.all(
+      TIME_RANGE_TRACKS.map(async (timeRange) => {
+        const artistData = await spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
+          return {
+            time_range: timeRange,
+            artist_data: res.body.items.map((artist) => {
+              const largestAlbumImage = artist.images[1] ? artist.images[1] : artist.images[0];
+              // Fix capitalization of genres
+              const capitalizedGenre = artist.genres[0]
+                .split(" ")
+                .map((word) => {
+                  return word[0].toUpperCase() + word.substring(1);
+                })
+                .join(" ");
+              return {
+                artistName: artist.name,
+                uri: artist.uri,
+                artistLink: artist.external_urls.spotify,
+                imageUrl: largestAlbumImage.url,
+                genre: capitalizedGenre,
+              };
+            }),
+          };
+        });
+        return artistData;
+      }),
+    ).then((values) => localStorage.setItem("artistData", JSON.stringify(values)));
+
+    (async () => {
+      const userData = await spotifyApi.getMe().then((res) => {
+        return {
+          displayName: res.body.display_name ? res.body.display_name : null,
+          userName: res.body.id,
+          userImageUrl: res.body.images[0].url ? res.body.images[0].url : null,
+        };
+      });
+      return userData;
+    })().then((value) => localStorage.setItem("userData", JSON.stringify(value)));
+  }, [accessToken]);
+
+  // set which data is returned
+
+  useEffect(() => {
+    const tracks = localStorage.getItem("trackData");
+    const artists = localStorage.getItem("artistData");
+
+    if (tracks || artists) {
+      const filteredTracks = JSON.parse(tracks).filter((track) => track.time_range === timeRange);
+      setTrackResults(filteredTracks[0].track_data);
+      const filteredArtists = JSON.parse(artists).filter((artist) => artist.time_range === timeRange);
+      setArtistResults(filteredArtists[0].artist_data);
+    }
+  }, [timeRange, loading]);
 
   // Get User Profile Pic
   useEffect(() => {
-    if (!accessToken) return setUserInfo({});
-    spotifyApi.getMe().then((res) => {
+    const user = localStorage.getItem("userData");
+
+    if (user) {
+      const parsedUser = JSON.parse(user);
       setUserInfo({
-        displayName: res.body.display_name ? res.body.display_name : null,
-        userName: res.body.id,
-        userImageUrl: res.body.images[0].url ? res.body.images[0].url : null,
+        displayName: parsedUser.displayName ? parsedUser.displayName : null,
+        userName: parsedUser.userName,
+        userImageUrl: parsedUser.userImageUrl ? parsedUser.userImageUrl : null,
       });
-    });
-  }, [accessToken]);
+    }
+  }, [loading]);
 
   useEffect(() => {
     if (userInfo && artistResults && trackResults) {
