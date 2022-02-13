@@ -17,17 +17,15 @@ Top 5 Spotify is a ReactJS experiment using the Spotify API. This app uses React
 
   ---
 
-  ### Known Issues
-  - Mobile version is not properly sized
-  - Spotify Refresh Token does not always work
+  ### Features
+  - Data display of user's top tracks + artists for all 3 available time measure periods
+  - Track + Artist items link to relevant spotify pages
+  - Toggle-able image and name
 
   ---
-
-  ### Planned Features/Changes
-  - Color picker + gradient background options
-  - Track + Artist items link to relevant spotify pages
-  - Convenient 'screenshot to clipboard' button
-  - Accessibility settings
+  
+  ### Known Issues
+  - Spotify's API limits use of User Info endpoint, and will not display user images or names
 
   ---
 
