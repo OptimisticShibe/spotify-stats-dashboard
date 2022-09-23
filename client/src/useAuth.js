@@ -14,9 +14,12 @@ export default function useAuth() {
   useEffect(() => {
     if (!code) return;
     axios
-      .post("https://topfivespotify.site/login", {
+      .post("https://whispering-castle-41935.herokuapp.com/login", {
         code,
       })
+      // .post("https://topfivespotify.site/login", {
+      //   code,
+      // })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
@@ -36,9 +39,12 @@ export default function useAuth() {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post("https://topfivespotify.site/refresh", {
+        .post("https://whispering-castle-41935.herokuapp.com/refresh", {
           refreshToken,
         })
+        // .post("https://topfivespotify.site/refresh", {
+        //   refreshToken,
+        // })
         .then((res) => {
           setAccessToken(res.data.body.access_token);
           setExpiresIn(res.data.body.expires_in);
