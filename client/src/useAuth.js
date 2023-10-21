@@ -2,19 +2,22 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function useAuth() {
+  const URL = `http://localhost:8000`;
   const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken"));
   const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refreshToken"));
   const [expiresIn, setExpiresIn] = useState(localStorage.getItem("expiresIn"));
-  const [code, setCode] = useState();
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     setCode(new URLSearchParams(window.location.search).get("code"));
   }, []);
 
   useEffect(() => {
-    if (!code) return;
+    if (!code) {
+      return;
+    }
     axios
-      .post("https://whispering-castle-41935.herokuapp.com/login", {
+      .post(`${URL}/login`, {
         code,
       })
       // .post("https://topfivespotify.site/login", {
@@ -31,15 +34,16 @@ export default function useAuth() {
       })
       .catch(() => {
         localStorage.removeItem("accessToken");
-        window.location = "/";
+        console.log("Login Error");
+        // window.location = "/";
       });
-  }, [code]);
+  }, [URL, code]);
 
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;
     const interval = setInterval(() => {
       axios
-        .post("https://whispering-castle-41935.herokuapp.com/refresh", {
+        .post(`${URL}/refresh`, {
           refreshToken,
         })
         // .post("https://topfivespotify.site/refresh", {
@@ -54,11 +58,12 @@ export default function useAuth() {
         .catch(() => {
           localStorage.removeItem("accessToken");
           window.location = "/";
+          console.log("Refresh error");
         });
     }, (expiresIn - 60) * 1000);
 
     return () => clearInterval(interval);
-  }, [refreshToken, expiresIn]);
+  }, [URL, refreshToken, expiresIn]);
 
   useEffect(() => {
     if (!accessToken) return;

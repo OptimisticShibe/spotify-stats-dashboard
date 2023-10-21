@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
 
-const spotifyApi = new SpotifyWebApi({
+const credentials = {
   clientId: "f655ecf166914d6b9ecf6d7abcc91c52",
-});
+};
+
+const spotifyApi = new SpotifyWebApi(credentials);
 
 export default function FetchSpotifyData({ token }) {
   const [accessToken, setAccessToken] = useState(token);
@@ -72,11 +74,13 @@ export default function FetchSpotifyData({ token }) {
               const largestAlbumImage = artist.images[1] ? artist.images[1] : artist.images[0];
               // Fix capitalization of genres
               const capitalizedGenre = artist.genres[0]
-                .split(" ")
-                .map((word) => {
-                  return word[0].toUpperCase() + word.substring(1);
-                })
-                .join(" ");
+                ? artist.genres[0]
+                    .split(" ")
+                    .map((word) => {
+                      return word[0].toUpperCase() + word.substring(1);
+                    })
+                    .join(" ")
+                : "[No Genre]";
               return {
                 artistName: artist.name,
                 uri: artist.uri,
@@ -109,9 +113,11 @@ export default function FetchSpotifyData({ token }) {
     const tracks = localStorage.getItem("trackData");
     const artists = localStorage.getItem("artistData");
 
-    if (tracks || artists) {
+    if (tracks) {
       const filteredTracks = JSON.parse(tracks).filter((track) => track.time_range === timeRange);
       setTrackResults(filteredTracks[0].track_data);
+    }
+    if (artists) {
       const filteredArtists = JSON.parse(artists).filter((artist) => artist.time_range === timeRange);
       setArtistResults(filteredArtists[0].artist_data);
     }
