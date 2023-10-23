@@ -100,7 +100,7 @@ export default function FetchSpotifyData({ token }) {
         return {
           displayName: res.body.display_name ? res.body.display_name : null,
           userName: res.body.id,
-          userImageUrl: res.body.images[0].url ? res.body.images[0].url : null,
+          userImageUrl: res.body.images[1].url ? res.body.images[1].url : null,
         };
       });
       return userData;

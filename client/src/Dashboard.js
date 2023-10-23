@@ -8,6 +8,8 @@ import ArtistSearchResult from "./ArtistSearchResult";
 import FetchSpotifyData from "./FetchSpotifyData";
 import InfoModal from "./InfoModal";
 import TrackSearchResult from "./TrackSearchResult";
+import { ReactComponent as ProtoHead } from "./assets/proto_head.svg";
+import { ReactComponent as ProtoLogo } from "./assets/proto_logo.svg";
 
 export default function Dashboard({ token }) {
   const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData({ token });
@@ -38,8 +40,8 @@ export default function Dashboard({ token }) {
         ) : (
           <div className="primary-container">
             <Navbar variant="dark" expand="md" className="p-2 mb-2 justify-content-between nav-main">
-              <Navbar.Brand className="ml-0 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
-              <Navbar.Brand className="d-md-none d-xs-flex">O</Navbar.Brand>
+              <Navbar.Brand className="ml-0 mx-4 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
+              <Navbar.Brand className="d-md-none d-xs-flex"></Navbar.Brand>
               <div className="timeframe-button-container">{dataRender}</div>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1 d-md-none d-xs-inline responsive-navbar-button" />
 
@@ -64,7 +66,7 @@ export default function Dashboard({ token }) {
                     <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>&nbsp;Logout
                   </Nav.Link>
                 </div>
-                <NavDropdown title="Options" id="nav-dropdown" className="d-none d-md-block">
+                <NavDropdown title="Options & Info" id="nav-dropdown" className="d-none d-md-block">
                   <NavDropdown.Item onClick={onNameClick}>
                     <FontAwesomeIcon icon={faFont} style={{ margin: "0px 1px" }}></FontAwesomeIcon>&nbsp;Toggle Name
                   </NavDropdown.Item>
@@ -84,7 +86,7 @@ export default function Dashboard({ token }) {
                     &nbsp;About This App
                   </NavDropdown.Item>
                 </NavDropdown>
-                <Button variant="outline-light" onClick={logout} className="mx-2 d-none d-md-block">
+                <Button variant="outline-light" onClick={logout} className="me-4 d-none d-md-block">
                   Logout
                 </Button>
               </Navbar.Collapse>
@@ -93,10 +95,12 @@ export default function Dashboard({ token }) {
 
             <div className={showUserImage || showName ? "user-container" : "d-none"}>
               <div className={showUserImage ? "user-image-container" : "d-none"}>
-                <img src={userInfo.userImageUrl ? userInfo.userImageUrl : require("./assets/defaultUser.png")} className="user-image" alt="User" />
+                {!userInfo.userImageUrl ? <img src={userInfo.userImageUrl} className="user-image" alt="User" /> : <ProtoLogo alt="User" />}
+                {/* <img src={require("./assets/proto_head.svg")} className="user-image" alt="User" /> */}
+                {/* <img src={userInfo.userImageUrl ? userInfo.userImageUrl : require("./assets/defaultUser.png")} className="user-image" alt="User" /> */}
               </div>
               <div className={showName ? "user-name-container" : "d-none"}>
-                <h3>{userInfo.displayName}</h3>
+                <h1>{userInfo.displayName}</h1>
               </div>
             </div>
             {/* mobile display */}
