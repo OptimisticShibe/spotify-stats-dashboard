@@ -10,7 +10,7 @@ const SCOPES = ["user-top-read"];
 const CLIENT_ID = "f655ecf166914d6b9ecf6d7abcc91c52";
 const SPACE_DELIMETER = "%20";
 // const REDIRECT_URI = "http://localhost:3000";
-const REDIRECT_URI = "https://topfivespotify.rafiqramadan.com";
+const REDIRECT_URI = "https://topfivetrend.rafiqramadan.com";
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMETER);
 const state = Math.random().toString(36).substring(7);
 // const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=https://topfivespotify.site&scope=${SCOPES_URL_PARAM}`;
@@ -42,7 +42,7 @@ export default function Login() {
   return (
     <div>
       <Container className="login-page-container d-flex justify-content-center align-items-center flex-column" style={{ minHeight: "100vh", color: "white" }}>
-        <h1 className="p-3">Top 5 Spotify</h1>
+        <h1 className="p-3">Top 5 Trend</h1>
         <div className="login-page-text">
           <ReactMarkdown children={info1} className="my-3" />
           <a className="btn btn-success btn-lg m-3" href={authorizeURL}>

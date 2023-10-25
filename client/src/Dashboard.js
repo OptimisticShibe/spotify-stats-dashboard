@@ -40,7 +40,7 @@ export default function Dashboard({ token }) {
         ) : (
           <div className="primary-container">
             <Navbar variant="dark" expand="md" className="p-2 mb-2 justify-content-between nav-main">
-              <Navbar.Brand className="ml-0 mx-4 d-none d-md-flex">Top 5 Spotify</Navbar.Brand>
+              <Navbar.Brand className="ml-0 mx-4 d-none d-md-flex">Top 5 Trend</Navbar.Brand>
               <Navbar.Brand className="d-md-none d-xs-flex"></Navbar.Brand>
               <div className="timeframe-button-container">{dataRender}</div>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1 d-md-none d-xs-inline responsive-navbar-button" />
