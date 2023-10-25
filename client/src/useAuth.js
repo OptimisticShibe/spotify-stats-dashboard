@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function useAuth() {
-  const URL = process.env.REDIRECT_URI;
+  const URL = "https://topfivespotify.rafiqramadan.com";
   const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken"));
   const [refreshToken, setRefreshToken] = useState(localStorage.getItem("refreshToken"));
   const [expiresIn, setExpiresIn] = useState(localStorage.getItem("expiresIn"));
