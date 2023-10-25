@@ -21,9 +21,6 @@ export default function useAuth() {
       .post(`${URL}/login`, {
         code,
       })
-      // .post("https://topfivespotify.site/login", {
-      //   code,
-      // })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
@@ -36,7 +33,6 @@ export default function useAuth() {
       .catch(() => {
         localStorage.removeItem("accessToken");
         console.log("Login Error");
-        // window.location = "/";
       });
   }, [URL, code]);
 
@@ -47,9 +43,6 @@ export default function useAuth() {
         .post(`${URL}/refresh`, {
           refreshToken,
         })
-        // .post("https://topfivespotify.site/refresh", {
-        //   refreshToken,
-        // })
         .then((res) => {
           setAccessToken(res.data.body.access_token);
           setExpiresIn(res.data.body.expires_in);

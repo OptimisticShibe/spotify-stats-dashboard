@@ -14,7 +14,6 @@ export default function InfoModal() {
   This app uses React Hooks to manage state, and gather data from 3 endpoints: **User, Top Tracks,** and **Top Artists**
 
   Tracks and Artists will fetch a user's top tracks and artists within 1 of 3 possible timeframes allowed by the API: **4 weeks, 6 months,** and **All Time.**
-  User endpoint is just used to fetch the User Icon (if there is one).
   
   ---
 
@@ -29,14 +28,13 @@ export default function InfoModal() {
 
   ##### Planned Features/Changes
   - Color picker + gradient background options
-  - Track + Artist items link to relevant spotify pages
   - Convenient 'screenshot to clipboard' button
   - Accessibility settings
 
   ---
 
   ##### Troubleshooting
-  This app is still very much a WIP. For most problems, simply **clicking the logout button** and logging back in with Spotify will fix your issues.
+  For most problems, simply **clicking the logout button** and logging back in with Spotify will fix your issues.
 
   ---
 

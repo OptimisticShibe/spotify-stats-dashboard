@@ -95,7 +95,7 @@ export default function Dashboard({ token }) {
 
             <div className={showUserImage || showName ? "user-container" : "d-none"}>
               <div className={showUserImage ? "user-image-container" : "d-none"}>
-                {!userInfo.userImageUrl ? <img src={userInfo.userImageUrl} className="user-image" alt="User" /> : <ProtoLogo alt="User" />}
+                {userInfo.userImageUrl ? <img src={userInfo.userImageUrl} className="user-image" alt="User" /> : <ProtoLogo alt="User" />}
                 {/* <img src={require("./assets/proto_head.svg")} className="user-image" alt="User" /> */}
                 {/* <img src={userInfo.userImageUrl ? userInfo.userImageUrl : require("./assets/defaultUser.png")} className="user-image" alt="User" /> */}
               </div>
