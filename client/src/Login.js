@@ -5,9 +5,11 @@ import { demoButton, info1, info2 } from "./constants";
 import SpotifyWebApi from "spotify-web-api-node";
 import SpotifyWebApiServer from "spotify-web-api-node/src/server-methods";
 
-const SCOPES = ["user-read-private", "user-top-read"];
+const SCOPES = ["user-top-read"];
+// const SCOPES = ["user-read-private", "user-top-read"];
 const CLIENT_ID = "f655ecf166914d6b9ecf6d7abcc91c52";
 const SPACE_DELIMETER = "%20";
+// const REDIRECT_URI = "http://localhost:3000";
 const REDIRECT_URI = "https://topfivespotify.rafiqramadan.com";
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMETER);
 const state = Math.random().toString(36).substring(7);
@@ -37,7 +39,6 @@ export default function Login() {
   });
 
   const authorizeURL = spotifyApi.createAuthorizeURL(SCOPES, state);
-  // TODO: add Jai's protogen icon he made
   return (
     <div>
       <Container className="login-page-container d-flex justify-content-center align-items-center flex-column" style={{ minHeight: "100vh", color: "white" }}>
