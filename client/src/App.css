@@ -17,8 +17,16 @@ a:hover,
   color: var(--text-color);
 }
 
+.app-container {
+  height: 100vh;
+}
+
 .nav-main {
   background-color: var(--bg-nav);
+}
+
+.content-display-container {
+  background-color: var(--bg);
 }
 
 .nav-link .active {
