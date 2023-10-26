@@ -9,27 +9,9 @@ export default function InfoModal() {
   const handleShowModal = () => setShowHelpModal(true);
 
   const modalBody = `
-  Top 5 Trend is a ReactJS app which uses the Spotify API to gather and display users' top 5 Artists and Tracks over a period of time
-
-  This app uses React Hooks to manage state, and gather data from 3 endpoints: **User, Top Tracks,** and **Top Artists**
+  Top 5 Spotify is a ReactJS app which uses the Spotify API to gather and display users' top 5 Artists and Tracks over a period of time
 
   Tracks and Artists will fetch a user's top tracks and artists within 1 of 3 possible timeframes allowed by the API: **4 weeks, 6 months,** and **All Time.**
-  
-  ---
-
-  ##### Technologies used in this app
-  - ReactJS
-  - Axios
-  - Express
-  - NodeJS
-  - React Bootstrap
-
-  ---
-
-  ##### Planned Features/Changes
-  - Color picker + gradient background options
-  - Convenient 'screenshot to clipboard' button
-  - Accessibility settings
 
   ---
 
@@ -47,7 +29,7 @@ export default function InfoModal() {
     modalRender: (
       <Modal show={showHelpModal} onHide={handleCloseModal} size="lg" centered aria-labelledby="More-info modal">
         <ModalHeader closeButton>
-          <ModalTitle className="text-center">About Top 5 Trend</ModalTitle>
+          <ModalTitle className="text-center">About Top 5 Spotify</ModalTitle>
         </ModalHeader>
         <ModalBody className="modal-body">
           <ReactMarkdown children={modalBody} />

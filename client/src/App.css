@@ -36,6 +36,8 @@ a:hover,
 @media screen and (max-width: 768px) {
   .timeframe-button-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -45,11 +47,14 @@ a:hover,
   }
   .timeframe-button-container {
     display: flex;
-    float: none;
+    height: auto;
+    align-items: center;
+    /* float: none;
     position: absolute;
+    padding: 0 2rem;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
   }
 }
 @media screen and (min-width: 1024px) {
@@ -80,7 +85,27 @@ a {
   color: var(--text-color);
 }
 
-.login-page-text {
+.capture-button {
+  position: absolute;
+  left: 2%;
+  top: 15%;
+  align-items: center;
+  justify-content: center;
+}
+
+.capture-button:hover {
+  .camera-icon {
+    filter: invert(1);
+  }
+}
+
+.capture-button-mobile {
+  display: flex;
+  flex-direction: column;
+  top: 25%;
+}
+
+.camera-icon .login-page-text {
   text-align: center;
 }
 .login-page-credits a {
@@ -125,7 +150,7 @@ body {
 }
 
 .timeframe-radio {
-  font-size: 0.8rem;
+  /* font-size: 0.8rem; */
   /* display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -134,7 +159,7 @@ body {
 }
 
 .desktop-data-container {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 10vw 1fr;
   gap: 1rem;
   justify-items: center;
   height: 60vh;
@@ -158,14 +183,11 @@ body {
   width: 100%;
 }
 
-/* .timeframe-button-container {
+.timeframe-button-container {
   display: flex;
-  float: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
+  flex-direction: column;
+  justify-content: center;
+}
 
 .modal-body a {
   color: #242526;
@@ -220,7 +242,11 @@ h4 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  min-height: 10vh;
+}
+
+.login-logo {
+  max-width: 40vw;
 }
 
 .user-name-container {
@@ -234,7 +260,7 @@ h4 {
   height: 100%;
   flex-grow: 1;
   height: 20vh;
-  margin-top: -1rem;
+  margin-top: 2rem;
 }
 
 .user-image {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
 import SpotifyWebApi from "spotify-web-api-node";
+import { mockedData } from "./constants";
 
 const credentials = {
   clientId: "f655ecf166914d6b9ecf6d7abcc91c52",
@@ -8,7 +9,7 @@ const credentials = {
 
 const spotifyApi = new SpotifyWebApi(credentials);
 
-export default function FetchSpotifyData({ token }) {
+export default function FetchSpotifyData({ token, setDemoMode }) {
   const [accessToken, setAccessToken] = useState(token);
   const [trackResults, setTrackResults] = useState([]);
   const [artistResults, setArtistResults] = useState([]);
@@ -25,6 +26,47 @@ export default function FetchSpotifyData({ token }) {
     { name: "6 Months", value: "medium_term" },
     { name: "All Time", value: "long_term" },
   ];
+
+  const formatTrackData = (timeRange, items) => {
+    return {
+      time_range: timeRange,
+      track_data: items.map((track) => {
+        const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
+        return {
+          artist: track.artists[0].name,
+          title: track.name,
+          trackLink: track.external_urls.spotify,
+          uri: track.uri,
+          albumUrl: largestAlbumImage.url,
+        };
+      }),
+    };
+  };
+
+  const formatArtistData = (timeRange, items) => {
+    return {
+      time_range: timeRange,
+      artist_data: items.map((artist) => {
+        const largestAlbumImage = artist.images[1] ? artist.images[1] : artist.images[0];
+        // Fix capitalization of genres
+        const capitalizedGenre = artist.genres[0]
+          ? artist.genres[0]
+              .split(" ")
+              .map((word) => {
+                return word[0].toUpperCase() + word.substring(1);
+              })
+              .join(" ")
+          : "[No Genre]";
+        return {
+          artistName: artist.name,
+          uri: artist.uri,
+          artistLink: artist.external_urls.spotify,
+          imageUrl: largestAlbumImage.url,
+          genre: capitalizedGenre,
+        };
+      }),
+    };
+  };
 
   useEffect(() => {
     if (token) {
@@ -47,19 +89,13 @@ export default function FetchSpotifyData({ token }) {
     Promise.all(
       TIME_RANGE_TRACKS.map(async (timeRange) => {
         const trackData = await spotifyApi.getMyTopTracks({ limit: 5, time_range: timeRange }).then((res) => {
-          return {
-            time_range: timeRange,
-            track_data: res.body.items.map((track) => {
-              const largestAlbumImage = track.album.images[1] ? track.album.images[1] : track.album.images[0];
-              return {
-                artist: track.artists[0].name,
-                title: track.name,
-                trackLink: track.external_urls.spotify,
-                uri: track.uri,
-                albumUrl: largestAlbumImage.url,
-              };
-            }),
-          };
+          if (res.statusCode !== 200) {
+            // Hit Mocked Data
+            setDemoMode(true);
+            const mockedItems = mockedData.trackData[timeRange];
+            return formatTrackData(timeRange, mockedItems.items);
+          }
+          return formatTrackData(timeRange, res.body.items);
         });
         return trackData;
       }),
@@ -68,28 +104,11 @@ export default function FetchSpotifyData({ token }) {
     Promise.all(
       TIME_RANGE_TRACKS.map(async (timeRange) => {
         const artistData = await spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
-          return {
-            time_range: timeRange,
-            artist_data: res.body.items.map((artist) => {
-              const largestAlbumImage = artist.images[1] ? artist.images[1] : artist.images[0];
-              // Fix capitalization of genres
-              const capitalizedGenre = artist.genres[0]
-                ? artist.genres[0]
-                    .split(" ")
-                    .map((word) => {
-                      return word[0].toUpperCase() + word.substring(1);
-                    })
-                    .join(" ")
-                : "[No Genre]";
-              return {
-                artistName: artist.name,
-                uri: artist.uri,
-                artistLink: artist.external_urls.spotify,
-                imageUrl: largestAlbumImage.url,
-                genre: capitalizedGenre,
-              };
-            }),
-          };
+          if (res.statusCode !== 200) {
+            const mockedItems = mockedData.artistData[timeRange];
+            return formatArtistData(timeRange, mockedItems.items);
+          }
+          return formatArtistData(timeRange, res.body.items);
         });
         return artistData;
       }),
@@ -152,7 +171,7 @@ export default function FetchSpotifyData({ token }) {
     loading,
     dataRender: (
       <>
-        <ButtonGroup className="timeframe-button-group">
+        <ButtonGroup vertical size="lg" className="timeframe-button-group">
           {radios.map((radio, idx) => {
             return (
               <ToggleButton

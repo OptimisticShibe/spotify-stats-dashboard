@@ -2,22 +2,28 @@ import { faFont, faQuestionCircle, faSignOutAlt, faUserCircle } from "@fortaweso
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useRef, useState } from "react";
-import { Button, Nav, Navbar, NavDropdown, Tab, Tabs } from "react-bootstrap";
+import { Button, Nav, Navbar, NavDropdown, Tab, Tabs, Image, Toast, ToastContainer, Alert } from "react-bootstrap";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import ArtistSearchResult from "./ArtistSearchResult";
 import FetchSpotifyData from "./FetchSpotifyData";
 import InfoModal from "./InfoModal";
+import DemoModal from "./DemoModal";
 import TrackSearchResult from "./TrackSearchResult";
 import { ReactComponent as ProtoHead } from "./assets/proto_head.svg";
 import { ReactComponent as ProtoLogo } from "./assets/proto_logo.svg";
 import html2canvas from "html2canvas";
+import protoLogo from "./assets/proto_logo.svg";
+import cameraIcon from "./assets/camera.png";
 
 export default function Dashboard({ token }) {
-  const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData({ token });
+  const [demoMode, setDemoMode] = useState(false);
+  const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData({ token, setDemoMode });
 
   const { handleShowModal, modalRender } = InfoModal();
+  const { handleShowDemoModal, demoModalRender } = DemoModal();
   const [showName, setShowName] = useState(true);
   const [showUserImage, setShowUserImage] = useState(true);
+  const [showToast, setShowToast] = useState(false);
 
   const logout = () => {
     localStorage.clear();
@@ -32,13 +38,32 @@ export default function Dashboard({ token }) {
   };
   const screenshotRef = useRef();
 
-  const captureScreenshot = () => {
-    let canvasPromise = html2canvas(screenshotRef.current, {
+  const toastSuccess = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+  };
+
+  const captureScreenshot = async () => {
+    const canvasPromise = html2canvas(screenshotRef.current, {
       useCORS: true,
     });
-    canvasPromise.then((canvas) => {
-      console.log("resolved promise");
-      document.getElementById("pin").appendChild(canvas);
+    canvasPromise.then(async (canvas) => {
+      try {
+        const imgURL = canvas.toDataURL("screenshot/png");
+        const data = await fetch(imgURL);
+        const blob = await data.blob();
+        await navigator.clipboard.write([
+          // eslint-disable-next-line no-undef
+          new ClipboardItem({
+            [blob.type]: blob,
+          }),
+        ]);
+        toastSuccess();
+      } catch (e) {
+        console.error(e);
+      }
     });
   };
 
@@ -50,13 +75,31 @@ export default function Dashboard({ token }) {
         </div>
       ) : (
         <div className="primary-container">
-          <Navbar variant="dark" expand="md" className="p-2 mb-2 justify-content-between nav-main">
-            <Navbar.Brand className="ml-0 mx-4 d-none d-md-flex">Top 5 Trend</Navbar.Brand>
+          {/* Desktop Screenshot Button */}
+          <Button size="lg" variant="outline-light d-md-flex d-none" onClick={() => captureScreenshot()} className="capture-button">
+            <Image alt="camera icon" src={cameraIcon} height="auto" width="30" className="camera-icon me-2" />
+            Capture Screenshot
+          </Button>
+          {/* Mobile Screenshot Button */}
+          <Button size="md" variant="outline-light d-xs-flex d-md-none" onClick={() => captureScreenshot()} className="capture-button capture-button-mobile">
+            <Image alt="camera icon" src={cameraIcon} height="auto" width="30" className="camera-icon me-2" />
+            Capture Screenshot
+          </Button>
+          <Navbar variant="dark" expand="md" className="p-2 mb-2 nav-main">
+            <Navbar.Brand className="ms-4 me-auto d-none d-md-flex">
+              <div>
+                <ProtoLogo alt="User" width="65" height="auto" className="me-2" />
+              </div>
+              Top 5 Spotify
+            </Navbar.Brand>
+            <Navbar.Brand className="ms-4 d-md-none d-xs-flex d-sm-flex align-items-center">
+              <div>
+                <ProtoLogo alt="User" width="65" height="auto" className="me-3" />
+              </div>
+              <span>Top 5 Spotify</span>
+            </Navbar.Brand>
             <Navbar.Brand className="d-md-none d-xs-flex"></Navbar.Brand>
-            <Button variant="outline-light" onClick={() => captureScreenshot()} className="d-none d-md-block">
-              Capture
-            </Button>
-            <div className="timeframe-button-container">{dataRender}</div>
+
             <Navbar.Toggle aria-controls="responsive-navbar-nav" className="my-1 d-md-none d-xs-inline responsive-navbar-button" />
 
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -80,7 +123,7 @@ export default function Dashboard({ token }) {
                   <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon>&nbsp;Logout
                 </Nav.Link>
               </div>
-              <NavDropdown title="Options & Info" id="nav-dropdown" className="d-none d-md-block">
+              <NavDropdown autoClose="outside" title="Options & Info" id="nav-dropdown" className="d-none d-md-block">
                 <NavDropdown.Item onClick={onNameClick}>
                   <FontAwesomeIcon icon={faFont} style={{ margin: "0px 1px" }}></FontAwesomeIcon>&nbsp;Toggle Name
                 </NavDropdown.Item>
@@ -105,16 +148,32 @@ export default function Dashboard({ token }) {
               </Button>
             </Navbar.Collapse>
             {modalRender}
+            {demoModalRender}
           </Navbar>
+          {/* Demo Mode Banner */}
+          {demoMode && (
+            <Alert variant="secondary">
+              <strong>ATTENTION:</strong> This app is in demo mode, and is displaying placeholder data.
+              <Alert.Link onClick={handleShowDemoModal} href="#">
+                {" "}
+                Click here for more info.
+              </Alert.Link>
+            </Alert>
+          )}
           <div className="content-display-container" id="pin" ref={screenshotRef}>
-            <div className={showUserImage || showName ? "user-container" : "d-none"}>
+            <ToastContainer bg="success" className="p-3 mt-5" position="top-end">
+              <Toast show={showToast} bg="success">
+                <Toast.Body className="text-white">
+                  <strong>Copied to clipboard!</strong>
+                </Toast.Body>
+              </Toast>
+            </ToastContainer>
+            <div className="user-container">
               <div className={showUserImage ? "user-image-container" : "d-none"}>
                 {userInfo.userImageUrl ? <img src={userInfo.userImageUrl} className="user-image" alt="User" /> : <ProtoLogo alt="User" />}
-                {/* <img src={require("./assets/proto_head.svg")} className="user-image" alt="User" /> */}
-                {/* <img src={userInfo.userImageUrl ? userInfo.userImageUrl : require("./assets/defaultUser.png")} className="user-image" alt="User" /> */}
               </div>
               <div className={showName ? "user-name-container" : "d-none"}>
-                <h1>{userInfo.displayName}</h1>
+                <h1>{userInfo.displayName ? userInfo.displayName : "Demo User"}</h1>
               </div>
             </div>
             {/* mobile display */}
@@ -131,6 +190,10 @@ export default function Dashboard({ token }) {
                   ))}
                 </Tab>
               </Tabs>
+              <div className="timeframe-button-container pb-2">
+                <h4>Range</h4>
+                {dataRender}
+              </div>
             </div>
             {/* full display options */}
             <div className="d-none d-md-grid desktop-data-container">
@@ -139,6 +202,10 @@ export default function Dashboard({ token }) {
                 {artistResults.map((artist) => (
                   <ArtistSearchResult artist={artist} key={artist.uri} />
                 ))}
+              </div>
+              <div className="timeframe-button-container pb-2">
+                <h4>Range</h4>
+                {dataRender}
               </div>
               <div className="desktop-sub-data-container">
                 <h4 className="text-center">Top Tracks</h4>
