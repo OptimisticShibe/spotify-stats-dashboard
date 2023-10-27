@@ -89,30 +89,36 @@ export default function FetchSpotifyData({ token, setDemoMode }) {
     Promise.all(
       TIME_RANGE_TRACKS.map(async (timeRange) => {
         const trackData = await spotifyApi.getMyTopTracks({ limit: 5, time_range: timeRange }).then((res) => {
-          if (res.statusCode !== 200) {
-            // Hit Mocked Data
-            setDemoMode(true);
-            const mockedItems = mockedData.trackData[timeRange];
-            return formatTrackData(timeRange, mockedItems.items);
-          }
           return formatTrackData(timeRange, res.body.items);
         });
         return trackData;
       }),
-    ).then((values) => localStorage.setItem("trackData", JSON.stringify(values)));
+    )
+      .then((values) => {
+        return localStorage.setItem("trackData", JSON.stringify(values));
+      })
+      .catch((e) => {
+        console.error("error!", e);
+        setDemoMode(true);
+        return localStorage.setItem("trackData", JSON.stringify(mockedData.trackData));
+      });
 
     Promise.all(
       TIME_RANGE_TRACKS.map(async (timeRange) => {
         const artistData = await spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
-          if (res.statusCode !== 200) {
-            const mockedItems = mockedData.artistData[timeRange];
-            return formatArtistData(timeRange, mockedItems.items);
-          }
           return formatArtistData(timeRange, res.body.items);
         });
         return artistData;
       }),
-    ).then((values) => localStorage.setItem("artistData", JSON.stringify(values)));
+    )
+      .then((values) => {
+        return localStorage.setItem("artistData", JSON.stringify(values));
+      })
+      .catch((e) => {
+        console.error("error!", e);
+        setDemoMode(true);
+        return localStorage.setItem("artistData", JSON.stringify(mockedData.artistData));
+      });
 
     (async () => {
       const userData = await spotifyApi.getMe().then((res) => {
@@ -123,7 +129,13 @@ export default function FetchSpotifyData({ token, setDemoMode }) {
         };
       });
       return userData;
-    })().then((value) => localStorage.setItem("userData", JSON.stringify(value)));
+    })()
+      .then((value) => localStorage.setItem("userData", JSON.stringify(value)))
+      .catch((e) => {
+        setDemoMode(true);
+        console.error("error", e);
+        return;
+      });
   }, [accessToken]);
 
   // set which data is returned

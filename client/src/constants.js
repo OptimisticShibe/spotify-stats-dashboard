@@ -20,6 +20,252 @@ const demoButton = `
 //   },
 // }
 const mockedData = {
+  trackData: [
+    {
+      time_range: "short_term",
+      track_data: [
+        {
+          artist: "Gunship",
+          title: "Tech Noir 2 (feat. John Carpenter, Charlie Simpson)",
+          trackLink: "https://open.spotify.com/track/6sm8udxa0SvDUMJ2jchWe7",
+          uri: "spotify:track:6sm8udxa0SvDUMJ2jchWe7",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e02c702f094fa5afa44b17a8fa4",
+        },
+        {
+          artist: "Best Frenz",
+          title: "The Adirondacks",
+          trackLink: "https://open.spotify.com/track/2ReGrjKu7SfLVKtRm18GCs",
+          uri: "spotify:track:2ReGrjKu7SfLVKtRm18GCs",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e021b13fb8312a0262bf9c018ec",
+        },
+        {
+          artist: "Best Frenz",
+          title: "Welcome To The Mall",
+          trackLink: "https://open.spotify.com/track/1F9g5vvh5cchv6paEzzJmO",
+          uri: "spotify:track:1F9g5vvh5cchv6paEzzJmO",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e021b13fb8312a0262bf9c018ec",
+        },
+        {
+          artist: "Sufjan Stevens",
+          title: "Goodbye Evergreen",
+          trackLink: "https://open.spotify.com/track/2GEs9D56FRHqUAEwvlvBpw",
+          uri: "spotify:track:2GEs9D56FRHqUAEwvlvBpw",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e0232a8498ea892ccd4fcf3f6cf",
+        },
+        {
+          artist: "Gunship",
+          title: "Monster in Paradise (feat. Milkie Way, Dave Lombardo, Tyler Bates)",
+          trackLink: "https://open.spotify.com/track/5WMn5op2E9aYUm5rk2ZNpY",
+          uri: "spotify:track:5WMn5op2E9aYUm5rk2ZNpY",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e02c702f094fa5afa44b17a8fa4",
+        },
+      ],
+    },
+    {
+      time_range: "medium_term",
+      track_data: [
+        {
+          artist: "Best Frenz",
+          title: "Throw Your Coins, Make A Wish",
+          trackLink: "https://open.spotify.com/track/76TXfqsg6GaJ8o179sRvvq",
+          uri: "spotify:track:76TXfqsg6GaJ8o179sRvvq",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e02a3da2e3b54601d007defc4cd",
+        },
+        {
+          artist: "Best Frenz",
+          title: "Welcome To The Mall",
+          trackLink: "https://open.spotify.com/track/1F9g5vvh5cchv6paEzzJmO",
+          uri: "spotify:track:1F9g5vvh5cchv6paEzzJmO",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e021b13fb8312a0262bf9c018ec",
+        },
+        {
+          artist: "Gunship",
+          title: "Tech Noir 2 (feat. John Carpenter, Charlie Simpson)",
+          trackLink: "https://open.spotify.com/track/6sm8udxa0SvDUMJ2jchWe7",
+          uri: "spotify:track:6sm8udxa0SvDUMJ2jchWe7",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e02c702f094fa5afa44b17a8fa4",
+        },
+        {
+          artist: "Martinů Voices",
+          title: "Byzantium (The Ancient Era)",
+          trackLink: "https://open.spotify.com/track/0gSy84Fl22VMIXCQ54GSYv",
+          uri: "spotify:track:0gSy84Fl22VMIXCQ54GSYv",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e02f260e780e1dfbf5187f5c640",
+        },
+        {
+          artist: "Best Frenz",
+          title: "The Adirondacks",
+          trackLink: "https://open.spotify.com/track/2ReGrjKu7SfLVKtRm18GCs",
+          uri: "spotify:track:2ReGrjKu7SfLVKtRm18GCs",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e021b13fb8312a0262bf9c018ec",
+        },
+      ],
+    },
+    {
+      time_range: "long_term",
+      track_data: [
+        {
+          artist: "Best Frenz",
+          title: "Ugly Ending",
+          trackLink: "https://open.spotify.com/track/5nd388N2RM419Jq23GRACT",
+          uri: "spotify:track:5nd388N2RM419Jq23GRACT",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e0268d2fd4acf0b6d1808b0ea03",
+        },
+        {
+          artist: "Everything Everything",
+          title: "The Actor",
+          trackLink: "https://open.spotify.com/track/1KUXZIqGRp14Py0WEso28g",
+          uri: "spotify:track:1KUXZIqGRp14Py0WEso28g",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e0254ae10c175eaf83b6596bf5c",
+        },
+        {
+          artist: "of Montreal",
+          title: "We Will Commit Wolf Murder",
+          trackLink: "https://open.spotify.com/track/1t5eRyRqqt6F8P5xeZcS2z",
+          uri: "spotify:track:1t5eRyRqqt6F8P5xeZcS2z",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e02a5b21e864087c7ab7f448f91",
+        },
+        {
+          artist: "Best Frenz",
+          title: "30% Off!",
+          trackLink: "https://open.spotify.com/track/7mRbbFn1Ip7hp1NoJQjOtB",
+          uri: "spotify:track:7mRbbFn1Ip7hp1NoJQjOtB",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e0268d2fd4acf0b6d1808b0ea03",
+        },
+        {
+          artist: "Japanese Breakfast",
+          title: "Paprika",
+          trackLink: "https://open.spotify.com/track/3zyqphgXvgHe436IMKeey3",
+          uri: "spotify:track:3zyqphgXvgHe436IMKeey3",
+          albumUrl: "https://i.scdn.co/image/ab67616d00001e02b103a69ed742a7735a2ba7e8",
+        },
+      ],
+    },
+  ],
+  artistData: [
+    {
+      time_range: "short_term",
+      artist_data: [
+        {
+          artistName: "Gunship",
+          uri: "spotify:artist:3PALZKWkpwjRvBsRmhlVSS",
+          artistLink: "https://open.spotify.com/artist/3PALZKWkpwjRvBsRmhlVSS",
+          imageUrl: "https://i.scdn.co/image/ab6761610000517496a96f31fdff768dd1245905",
+          genre: "Popwave",
+        },
+        {
+          artistName: "Sufjan Stevens",
+          uri: "spotify:artist:4MXUO7sVCaFgFjoTI5ox5c",
+          artistLink: "https://open.spotify.com/artist/4MXUO7sVCaFgFjoTI5ox5c",
+          imageUrl: "https://i.scdn.co/image/ab67616100005174b80dd6b23c5c04d62d9aa0c6",
+          genre: "Art Pop",
+        },
+        {
+          artistName: "Best Frenz",
+          uri: "spotify:artist:2gUtWSZwLhDitFVAezHsfv",
+          artistLink: "https://open.spotify.com/artist/2gUtWSZwLhDitFVAezHsfv",
+          imageUrl: "https://i.scdn.co/image/ab676161000051748d2104d4cb504d383b9e9ce6",
+          genre: "[No Genre]",
+        },
+        {
+          artistName: "Hippo Campus",
+          uri: "spotify:artist:1btWGBz4Uu1HozTwb2Lm8A",
+          artistLink: "https://open.spotify.com/artist/1btWGBz4Uu1HozTwb2Lm8A",
+          imageUrl: "https://i.scdn.co/image/ab67616100005174a540d61efaef0e682025c509",
+          genre: "Minneapolis Indie",
+        },
+        {
+          artistName: "Miniature Tigers",
+          uri: "spotify:artist:7xWU2A2lw1xf4zTjKhkrGK",
+          artistLink: "https://open.spotify.com/artist/7xWU2A2lw1xf4zTjKhkrGK",
+          imageUrl: "https://i.scdn.co/image/ab6761610000517455229ad1e9f45be6e601ef1c",
+          genre: "Stomp Pop",
+        },
+      ],
+    },
+    {
+      time_range: "medium_term",
+      artist_data: [
+        {
+          artistName: "Geoff Knorr",
+          uri: "spotify:artist:1OFCjpSAsyIOWWzIAYb3OI",
+          artistLink: "https://open.spotify.com/artist/1OFCjpSAsyIOWWzIAYb3OI",
+          imageUrl: "https://i.scdn.co/image/ab6761610000517481dfa97becd8f3c8e95a5e5d",
+          genre: "Video Game Music",
+        },
+        {
+          artistName: "Best Frenz",
+          uri: "spotify:artist:2gUtWSZwLhDitFVAezHsfv",
+          artistLink: "https://open.spotify.com/artist/2gUtWSZwLhDitFVAezHsfv",
+          imageUrl: "https://i.scdn.co/image/ab676161000051748d2104d4cb504d383b9e9ce6",
+          genre: "[No Genre]",
+        },
+        {
+          artistName: "Gunship",
+          uri: "spotify:artist:3PALZKWkpwjRvBsRmhlVSS",
+          artistLink: "https://open.spotify.com/artist/3PALZKWkpwjRvBsRmhlVSS",
+          imageUrl: "https://i.scdn.co/image/ab6761610000517496a96f31fdff768dd1245905",
+          genre: "Popwave",
+        },
+        {
+          artistName: "Dirt Poor Robins",
+          uri: "spotify:artist:16lGevDffmuRakKVvdJ983",
+          artistLink: "https://open.spotify.com/artist/16lGevDffmuRakKVvdJ983",
+          imageUrl: "https://i.scdn.co/image/ab67616100005174a99e6039483b51e0d719e2fc",
+          genre: "Dark Cabaret",
+        },
+        {
+          artistName: "Hippo Campus",
+          uri: "spotify:artist:1btWGBz4Uu1HozTwb2Lm8A",
+          artistLink: "https://open.spotify.com/artist/1btWGBz4Uu1HozTwb2Lm8A",
+          imageUrl: "https://i.scdn.co/image/ab67616100005174a540d61efaef0e682025c509",
+          genre: "Minneapolis Indie",
+        },
+      ],
+    },
+    {
+      time_range: "long_term",
+      artist_data: [
+        {
+          artistName: "Everything Everything",
+          uri: "spotify:artist:1HOeqtP7tHkKNJNLzQ2tnr",
+          artistLink: "https://open.spotify.com/artist/1HOeqtP7tHkKNJNLzQ2tnr",
+          imageUrl: "https://i.scdn.co/image/ab676161000051744ae4999521cdc4a1f35c437e",
+          genre: "British Indie Rock",
+        },
+        {
+          artistName: "of Montreal",
+          uri: "spotify:artist:5xeBMeW0YzWIXSVzAxhM8O",
+          artistLink: "https://open.spotify.com/artist/5xeBMeW0YzWIXSVzAxhM8O",
+          imageUrl: "https://i.scdn.co/image/ab67616100005174f3e93c0583fdb0c1b083ccf8",
+          genre: "Art Pop",
+        },
+        {
+          artistName: "Dirt Poor Robins",
+          uri: "spotify:artist:16lGevDffmuRakKVvdJ983",
+          artistLink: "https://open.spotify.com/artist/16lGevDffmuRakKVvdJ983",
+          imageUrl: "https://i.scdn.co/image/ab67616100005174a99e6039483b51e0d719e2fc",
+          genre: "Dark Cabaret",
+        },
+        {
+          artistName: "Geoff Knorr",
+          uri: "spotify:artist:1OFCjpSAsyIOWWzIAYb3OI",
+          artistLink: "https://open.spotify.com/artist/1OFCjpSAsyIOWWzIAYb3OI",
+          imageUrl: "https://i.scdn.co/image/ab6761610000517481dfa97becd8f3c8e95a5e5d",
+          genre: "Video Game Music",
+        },
+        {
+          artistName: "Kevin Penkin",
+          uri: "spotify:artist:4S33gEeiCjwfD1FJKfMT3Y",
+          artistLink: "https://open.spotify.com/artist/4S33gEeiCjwfD1FJKfMT3Y",
+          imageUrl: "https://i.scdn.co/image/ab676161000051744d7889d9cf5a026c646cb200",
+          genre: "Anime Score",
+        },
+      ],
+    },
+  ],
+};
+const mockedData2 = {
   trackData: {
     short_term: {
       items: [
