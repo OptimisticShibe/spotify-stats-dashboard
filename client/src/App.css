@@ -23,12 +23,12 @@ a:hover,
 
 .nav-main {
   background-color: var(--bg-nav);
-  height: 8vh;
+  height: 9vh;
 }
 
 .content-display-container {
   background-color: var(--bg);
-  height: 82vh;
+  height: 81vh;
 }
 .content-display-container-alert {
   background-color: var(--bg);
@@ -61,6 +61,10 @@ a:hover,
   }
   .centerContainer {
     grid-column: 5 / 8;
+  }
+  .item-bg:hover {
+    transform: scale(1.1);
+    cursor: pointer;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -256,6 +260,7 @@ h4 {
   display: flex;
   flex-direction: column;
   flex: 1 0;
+  object-fit: cover;
 }
 
 .screenshotButtonContainer {
@@ -313,11 +318,6 @@ h4 {
   transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
-}
-
-.item-bg:hover {
-  transform: scale(1.1);
-  cursor: pointer;
 }
 
 .data-container {
