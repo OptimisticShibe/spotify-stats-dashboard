@@ -1,0 +1,18 @@
+diff --git a/node_modules/spotify-web-api-node/src/http-manager.js b/node_modules/spotify-web-api-node/src/http-manager.js
+index 6c3991f..776b902 100644
+--- a/node_modules/spotify-web-api-node/src/http-manager.js
++++ b/node_modules/spotify-web-api-node/src/http-manager.js
+@@ -31,6 +31,13 @@ var _getParametersFromRequest = function(request) {
+ };
+ 
+ var _toError = function(response) {
++  if(!response.body){
++    response.body = {
++      error : {
++        message : response.statusCode
++      }
++    };
++  }
+   if (typeof response.body === 'object' && response.body.error && typeof response.body.error === 'object' && response.body.error.reason) {
+     return new WebapiPlayerError(response.body, response.headers, response.statusCode);
+   }
