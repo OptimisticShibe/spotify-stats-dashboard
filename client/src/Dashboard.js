@@ -75,15 +75,10 @@ export default function Dashboard({ token }) {
         </div>
       ) : (
         <div className="primary-container">
-          {/* Desktop Screenshot Button */}
-          <Button size="lg" variant="outline-light d-md-flex d-none" onClick={() => captureScreenshot()} className="capture-button">
-            <Image alt="camera icon" src={cameraIcon} height="auto" width="30" className="camera-icon me-2" />
-            Capture Screenshot
-          </Button>
           {/* Mobile Screenshot Button */}
-          <Button size="md" variant="outline-light d-xs-flex d-md-none" onClick={() => captureScreenshot()} className="capture-button capture-button-mobile">
+          <Button size="md" variant="outline-light d-xs-flex d-md-none" onClick={() => captureScreenshot()} className="capture-button-mobile">
             <Image alt="camera icon" src={cameraIcon} height="auto" width="30" className="camera-icon me-2" />
-            Capture Screenshot
+            <span className="d-none d-sm-block">Capture Screenshot</span>
           </Button>
           <Navbar variant="dark" expand="md" className="p-2 mb-2 nav-main">
             <Navbar.Brand className="ms-4 me-auto d-none d-md-flex">
@@ -92,7 +87,7 @@ export default function Dashboard({ token }) {
               </div>
               Top 5 Spotify
             </Navbar.Brand>
-            <Navbar.Brand className="ms-4 d-md-none d-xs-flex d-sm-flex align-items-center">
+            <Navbar.Brand className="ms-4 d-md-none d-flex align-items-center">
               <div>
                 <ProtoLogo alt="User" width="65" height="auto" className="me-3" />
               </div>
@@ -152,7 +147,7 @@ export default function Dashboard({ token }) {
           </Navbar>
           {/* Demo Mode Banner */}
           {demoMode && (
-            <Alert variant="secondary">
+            <Alert variant="secondary" className="alert">
               <strong>ATTENTION:</strong> This app is in demo mode, and is displaying placeholder data.
               <Alert.Link onClick={handleShowDemoModal} href="#">
                 {" "}
@@ -160,7 +155,7 @@ export default function Dashboard({ token }) {
               </Alert.Link>
             </Alert>
           )}
-          <div className="content-display-container" id="pin" ref={screenshotRef}>
+          <div className={demoMode ? "content-display-container-alert" : "content-display-container"} id="pin" ref={screenshotRef}>
             <ToastContainer bg="success" className="p-3 mt-5" position="top-end">
               <Toast show={showToast} bg="success">
                 <Toast.Body className="text-white">
@@ -168,12 +163,38 @@ export default function Dashboard({ token }) {
                 </Toast.Body>
               </Toast>
             </ToastContainer>
-            <div className="user-container">
-              <div className={showUserImage ? "user-image-container" : "d-none"}>
-                {userInfo.userImageUrl ? <img src={userInfo.userImageUrl} className="user-image" alt="User" /> : <ProtoLogo alt="User" />}
+            <div className="spotifyDataContainer">
+              <div className="desktopArtistContainer d-none d-md-flex">
+                <h4 className="text-center">Top Artists</h4>
+                {artistResults.map((artist) => (
+                  <ArtistSearchResult artist={artist} key={artist.uri} />
+                ))}
               </div>
-              <div className={showName ? "user-name-container" : "d-none"}>
-                <h1>{userInfo.displayName ? userInfo.displayName : "Demo User"}</h1>
+              <div className="centerContainer">
+                <div className="userContainer">
+                  <div className={showUserImage ? "user-image-container" : "d-none"}>
+                    {userInfo.userImageUrl ? <img src={userInfo.userImageUrl} className="user-image" alt="User" /> : <ProtoLogo alt="User" />}
+                  </div>
+                  <div className={showName ? "user-name-container" : "d-none"}>
+                    <h1>{userInfo.displayName ? userInfo.displayName : "Demo User"}</h1>
+                  </div>
+                </div>
+                <div className="timeframe-button-container pb-2 d-none d-md-flex">
+                  <h4>Range</h4>
+                  {dataRender}
+                </div>
+                <div className="screenshotButtonContainer" data-html2canvas-ignore="true">
+                  <Button size="lg" variant="outline-light d-md-flex d-none" onClick={() => captureScreenshot()} className="capture-button">
+                    <Image alt="camera icon" src={cameraIcon} height="auto" width="30" className="camera-icon me-2" />
+                    Capture Screenshot
+                  </Button>
+                </div>
+              </div>
+              <div className="desktopTrackContainer d-none d-md-flex">
+                <h4 className="text-center">Top Tracks</h4>
+                {trackResults.map((track) => (
+                  <TrackSearchResult track={track} key={track.uri} />
+                ))}
               </div>
             </div>
             {/* mobile display */}
@@ -193,25 +214,6 @@ export default function Dashboard({ token }) {
               <div className="timeframe-button-container pb-2">
                 <h4>Range</h4>
                 {dataRender}
-              </div>
-            </div>
-            {/* full display options */}
-            <div className="d-none d-md-grid desktop-data-container">
-              <div className="desktop-sub-data-container">
-                <h4 className="text-center">Top Artists</h4>
-                {artistResults.map((artist) => (
-                  <ArtistSearchResult artist={artist} key={artist.uri} />
-                ))}
-              </div>
-              <div className="timeframe-button-container pb-2">
-                <h4>Range</h4>
-                {dataRender}
-              </div>
-              <div className="desktop-sub-data-container">
-                <h4 className="text-center">Top Tracks</h4>
-                {trackResults.map((track) => (
-                  <TrackSearchResult track={track} key={track.uri} />
-                ))}
               </div>
             </div>
           </div>

@@ -23,10 +23,16 @@ a:hover,
 
 .nav-main {
   background-color: var(--bg-nav);
+  height: 8vh;
 }
 
 .content-display-container {
   background-color: var(--bg);
+  height: 82vh;
+}
+.content-display-container-alert {
+  background-color: var(--bg);
+  height: 75vh;
 }
 
 .nav-link .active {
@@ -39,6 +45,9 @@ a:hover,
     flex-direction: column;
     align-items: center;
   }
+  .centerContainer {
+    grid-column: span 12;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -49,12 +58,9 @@ a:hover,
     display: flex;
     height: auto;
     align-items: center;
-    /* float: none;
-    position: absolute;
-    padding: 0 2rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
+  }
+  .centerContainer {
+    grid-column: 5 / 8;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -71,8 +77,8 @@ a:hover,
 .primary-container {
   position: absolute;
   width: 100vw;
-  /* min-height: 100vh; */
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   top: 0;
 }
 
@@ -86,11 +92,10 @@ a {
 }
 
 .capture-button {
-  position: absolute;
-  left: 2%;
-  top: 15%;
-  align-items: center;
-  justify-content: center;
+  margin-top: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .capture-button:hover {
@@ -103,6 +108,10 @@ a {
   display: flex;
   flex-direction: column;
   top: 25%;
+  position: absolute;
+  left: 2%;
+  align-items: center;
+  justify-content: center;
 }
 
 .camera-icon .login-page-text {
@@ -137,7 +146,6 @@ body {
   color: white;
   font-size: 1.1rem;
   overflow: hidden;
-  /* position: relative; */
 }
 
 .text-main > div {
@@ -147,15 +155,6 @@ body {
 }
 .text-sub {
   color: rgb(185, 185, 185);
-}
-
-.timeframe-radio {
-  /* font-size: 0.8rem; */
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow: hidden; */
-  /* flex: 1; */
 }
 
 .desktop-data-container {
@@ -245,6 +244,41 @@ h4 {
   min-height: 10vh;
 }
 
+.spotifyDataContainer {
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+}
+
+.centerContainer {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0;
+}
+
+.screenshotButtonContainer {
+}
+
+.desktopArtistContainer {
+  grid-column: 1 / 5;
+  margin-left: 1rem;
+}
+
+.desktopTrackContainer {
+  grid-column: 8 / 12;
+  margin-right: 1rem;
+}
+
+.desktopArtistContainer,
+.desktopTrackContainer {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .login-logo {
   max-width: 40vw;
 }
@@ -252,7 +286,6 @@ h4 {
 .user-name-container {
   display: flex;
   justify-content: center;
-  /* margin-bottom: 1rem; */
 }
 
 .user-image-container {
@@ -292,7 +325,6 @@ h4 {
   overflow: hidden;
   white-space: nowrap;
   align-items: center;
-  /* display: flex; */
   height: 10vh;
 }
 
@@ -341,19 +373,6 @@ h4 {
 #mobile-menu:hover {
   cursor: pointer;
 }
-
-/* .dropdown {
-
-  position: absolute;
-  top: 80px;
-  width: 300px;
-  transform: translateX(-30%);
-  background-color: var(--bg);
-  border: var(--border);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  transition: height var(--speed) ease;
-} */
 
 .menu {
   width: 100%;
