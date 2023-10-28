@@ -5,7 +5,7 @@ Top 5 Spotify is a ReactJS app built with Node and an express server for managin
   Tracks and Artists will fetch a user's top tracks and artists within 1 of 3 possible timeframes allowed by the API: 4 weeks, 6 months, and All Time.
   User endpoint is just used to fetch the User Icon (if there is one) and username for display purposes.
   
-  ![image](https://github.com/OptimisticShibe/spotify-stats-dashboard/assets/22552444/4e9f08b7-efbb-4753-835f-08b057207fe4)
+ ![top5spotify_10 28 23](https://github.com/OptimisticShibe/spotify-stats-dashboard/assets/22552444/c4771389-5e2f-43b8-a896-f1198b6d2923)
 
   ---
 
