@@ -1,7 +1,7 @@
 import { faFont, faQuestionCircle, faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Button, Nav, Navbar, NavDropdown, Tab, Tabs, Image, Toast, ToastContainer, Alert } from "react-bootstrap";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import ArtistSearchResult from "./ArtistSearchResult";
@@ -17,6 +17,7 @@ import cameraIcon from "./assets/camera.png";
 
 export default function Dashboard({ token }) {
   const [demoMode, setDemoMode] = useState(false);
+  const [demoModeAlertOpen, setDemoModeAlertOpen] = useState(false);
   const { trackResults, artistResults, userInfo, loading, dataRender } = FetchSpotifyData({ token, setDemoMode });
 
   const { handleShowModal, modalRender } = InfoModal();
@@ -24,6 +25,12 @@ export default function Dashboard({ token }) {
   const [showName, setShowName] = useState(true);
   const [showUserImage, setShowUserImage] = useState(true);
   const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    if (demoMode) {
+      setDemoModeAlertOpen(true);
+    }
+  }, [demoMode]);
 
   const logout = () => {
     localStorage.clear();
@@ -146,15 +153,13 @@ export default function Dashboard({ token }) {
             {demoModalRender}
           </Navbar>
           {/* Demo Mode Banner */}
-          {demoMode && (
-            <Alert variant="secondary" className="alert">
-              <strong>ATTENTION:</strong> This app is in demo mode, and is displaying placeholder data.
-              <Alert.Link onClick={handleShowDemoModal} href="#">
-                {" "}
-                Click here for more info.
-              </Alert.Link>
-            </Alert>
-          )}
+          <Alert variant="secondary" className="alert" show={demoModeAlertOpen} onClose={() => setDemoModeAlertOpen(false)} dismissible>
+            <strong>ATTENTION:</strong> This app is in demo mode, and is displaying placeholder data.
+            <Alert.Link onClick={handleShowDemoModal} href="#">
+              {" "}
+              Click here for more info.
+            </Alert.Link>
+          </Alert>
           <div className={demoMode ? "content-display-container-alert" : "content-display-container"} id="pin" ref={screenshotRef}>
             <ToastContainer bg="success" className="p-3 mt-5" position="top-end">
               <Toast show={showToast} bg="success">

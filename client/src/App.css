@@ -211,6 +211,8 @@ body {
 /* Overriding Navbar Collapse settings */
 #responsive-navbar-nav {
   flex-grow: 0;
+  background-color: var(--bg-nav);
+  border-radius: 2%;
 }
 
 .timeframe-button-group > .btn {
