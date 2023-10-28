@@ -101,23 +101,24 @@ export default function FetchSpotifyData({ token, setDemoMode }) {
         console.error("error!", e);
         setDemoMode(true);
         return localStorage.setItem("trackData", JSON.stringify(mockedData.trackData));
-      });
-
-    Promise.all(
-      TIME_RANGE_TRACKS.map(async (timeRange) => {
-        const artistData = await spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
-          return formatArtistData(timeRange, res.body.items);
-        });
-        return artistData;
-      }),
-    )
-      .then((values) => {
-        return localStorage.setItem("artistData", JSON.stringify(values));
       })
-      .catch((e) => {
-        console.error("error!", e);
-        setDemoMode(true);
-        return localStorage.setItem("artistData", JSON.stringify(mockedData.artistData));
+      .then(() => {
+        Promise.all(
+          TIME_RANGE_TRACKS.map(async (timeRange) => {
+            const artistData = await spotifyApi.getMyTopArtists({ limit: 5, time_range: timeRange }).then((res) => {
+              return formatArtistData(timeRange, res.body.items);
+            });
+            return artistData;
+          }),
+        )
+          .then((values) => {
+            return localStorage.setItem("artistData", JSON.stringify(values));
+          })
+          .catch((e) => {
+            console.error("error!", e);
+            setDemoMode(true);
+            return localStorage.setItem("artistData", JSON.stringify(mockedData.artistData));
+          });
       });
 
     (async () => {

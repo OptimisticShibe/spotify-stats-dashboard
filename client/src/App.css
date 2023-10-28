@@ -297,17 +297,17 @@ h4 {
 
 .user-image-container {
   display: flex;
+  justify-content: center;
   height: 100%;
-  flex-grow: 1;
-  height: 20vh;
+  flex: 1;
+  max-height: 20vh;
   margin-top: 2rem;
 }
 
 .user-image {
   display: flex;
-  flex-grow: 1;
+  flex: 0 0 auto;
   height: 100%;
-  width: 100%;
   border: 1px solid;
   border-radius: 50%;
   border-width: 5px;
